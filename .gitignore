@@ -1,6 +1,9 @@
 # Project binary directory
 build
 
+# Glade temporary files
+*~
+
 # Prerequisites
 *.d
 
