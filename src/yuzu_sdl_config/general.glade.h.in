@@ -1,0 +1,5 @@
+#pragma once
+
+namespace YuzuSdlConfig {
+const char* general_configuration = "@GENERAL_GLADE@";
+}

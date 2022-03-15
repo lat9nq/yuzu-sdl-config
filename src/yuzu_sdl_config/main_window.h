@@ -1,6 +1,8 @@
 #pragma once
 
+#include <memory>
 #include <gtk/gtk.h>
+#include "yuzu_sdl_config/general.h"
 
 namespace YuzuSdlConfig {
 class MainWindow {
@@ -9,6 +11,9 @@ public:
     ~MainWindow();
 
     GtkWindow* window_main;
+    GtkNotebook* notebook_view;
+
+    std::unique_ptr<General> page_general;
 
 private:
     void BuildUi();

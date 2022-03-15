@@ -16,9 +16,15 @@ void MainWindow::BuildUi() {
     gtk_builder_connect_signals(builder, this);
 
     window_main = GTK_WINDOW(gtk_builder_get_object(builder, "window_main"));
+    notebook_view = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook_view"));
 
     g_object_ref(window_main);
     g_object_unref(builder);
+
+    page_general = std::make_unique<General>();
+
+    gtk_notebook_append_page(notebook_view, GTK_WIDGET(page_general->grid_general),
+                             gtk_label_new("General"));
 }
 
 void on_window_main_destroy(GtkWidget* caller, gpointer user_data) {
