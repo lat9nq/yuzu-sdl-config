@@ -6,7 +6,7 @@ namespace YuzuSdlConfig {
 class Tab {
 public:
     Tab(){};
-    ~Tab() = default;
+    virtual ~Tab(){};
 
     virtual void UpdateUi() = 0;
     virtual GtkWidget* GetParent() = 0;
