@@ -1,8 +1,8 @@
 #include <cassert>
 #include <cstring>
 #include <gtk/gtk.h>
-#include "yuzu_sdl_config/general.glade.h"
-#include "yuzu_sdl_config/general.h"
+#include "yuzu_sdl_config/tab_general.glade.h"
+#include "yuzu_sdl_config/tab_general.h"
 
 namespace YuzuSdlConfig {
 General::General(BasicIni& ini_) : ini{ini_} {
