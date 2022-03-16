@@ -5,18 +5,22 @@
 #include <basicini/basicini.h>
 #include <basicini/basicini_reader.h>
 #include <gtk/gtk.h>
+#include "yuzu_sdl_config/config.h"
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
 #include "yuzu_sdl_config/tab_general.h"
 
 namespace YuzuSdlConfig {
 
-MainWindow::MainWindow(std::unique_ptr<BasicIni> ini_) : ini{std::move(ini_)} {
-    BasicIniReader reader(*ini);
+MainWindow::MainWindow(std::unique_ptr<BasicIni> ini_, std::unique_ptr<Settings::Values> settings_)
+    : ini{std::move(ini_)}, settings{std::move(settings_)} {
+    BasicIniReader reader{*ini};
     reader.ReadFile();
     if (!reader.IsValid()) {
         ini->Clear();
     }
+
+    LoadConfig(*ini, *settings);
 
     BuildUi();
     UpdateUi();
@@ -38,7 +42,7 @@ void MainWindow::BuildUi() {
     g_object_ref(window_main);
     g_object_unref(builder);
 
-    tab_general = std::make_unique<TabGeneral>(*ini);
+    tab_general = std::make_unique<TabGeneral>(*settings);
 
     PopulateCategories();
 }
@@ -107,14 +111,5 @@ void on_list_box_view_select_row_selected(GtkWidget* self, GtkListBoxRow* row, g
         gtk_notebook_append_page(window->notebook_view, widget,
                                  gtk_label_new(gtk_widget_get_name(widget)));
     }
-}
-
-void Start(int* argc, char*** argv, std::unique_ptr<BasicIni> ini_) {
-    gtk_init(argc, argv);
-
-    std::unique_ptr<MainWindow> main_window = std::make_unique<MainWindow>(std::move(ini_));
-    gtk_widget_show(GTK_WIDGET(main_window->window_main));
-
-    gtk_main();
 }
 } // namespace YuzuSdlConfig

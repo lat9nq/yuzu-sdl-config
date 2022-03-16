@@ -9,6 +9,6 @@ public:
     virtual ~Tab(){};
 
     virtual void UpdateUi() = 0;
-    virtual GtkWidget* GetParent() = 0;
+    virtual GtkWidget* GetParent() const = 0;
 };
 } // namespace YuzuSdlConfig

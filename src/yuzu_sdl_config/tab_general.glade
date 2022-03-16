@@ -12,110 +12,138 @@
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <!-- n-columns=2 n-rows=4 -->
-  <object class="GtkGrid" id="grid_general">
+  <object class="GtkBox" id="box_general">
     <property name="name">General</property>
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="valign">start</property>
     <property name="margin-start">4</property>
     <property name="margin-end">4</property>
     <property name="margin-top">4</property>
     <property name="margin-bottom">4</property>
-    <property name="row-spacing">4</property>
-    <property name="column-spacing">4</property>
-    <property name="row-homogeneous">True</property>
-    <property name="column-homogeneous">True</property>
-    <child>
-      <object class="GtkCheckButton" id="check_button_use_speed_limit">
-        <property name="label" translatable="yes">Limit Speed Percent</property>
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="receives-default">False</property>
-        <property name="tooltip-text" translatable="yes">Turns on the speed limiter, which will limit the emulation speed to the desired speed limit value\nSets use_speed_limit</property>
-        <property name="draw-indicator">True</property>
-        <signal name="toggled" handler="on_check_button_use_speed_limit_toggled" swapped="no"/>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="check_button_use_extended_memory_layout">
-        <property name="label" translatable="yes">Extended memory layout (6GB DRAM)</property>
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="receives-default">False</property>
-        <property name="tooltip-text" translatable="yes">Enable extended guest system memory layout (6GB DRAM)\nSets use_extended_memory_layout</property>
-        <property name="draw-indicator">True</property>
-      </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">3</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSpinButton" id="spin_button_fps_cap">
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text" translatable="yes">Caps the unlocked framerate to a multiple of the title's target FPS.\nSets fps_cap</property>
-        <property name="input-purpose">number</property>
-        <property name="adjustment">adjustment2</property>
-        <property name="numeric">True</property>
-      </object>
-      <packing>
-        <property name="left-attach">1</property>
-        <property name="top-attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSpinButton" id="spin_button_speed_limit">
-        <property name="visible">True</property>
-        <property name="sensitive">False</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text" translatable="yes">Limits the speed of the game to run no faster than this value as a percentage of target speed\nSets speed_limit</property>
-        <property name="input-purpose">number</property>
-        <property name="adjustment">adjustment1</property>
-        <property name="numeric">True</property>
-      </object>
-      <packing>
-        <property name="left-attach">1</property>
-        <property name="top-attach">1</property>
-      </packing>
-    </child>
+    <property name="orientation">vertical</property>
     <child>
       <object class="GtkLabel">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="tooltip-text" translatable="yes">Caps the unlocked framerate to a multiple of the title's target FPS.\nSets fps_cap</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">Framerate Cap</property>
+        <property name="label" translatable="yes">General</property>
       </object>
       <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">0</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">8</property>
+        <property name="position">0</property>
       </packing>
     </child>
     <child>
-      <object class="GtkCheckButton" id="check_button_use_multi_core">
-        <property name="label" translatable="yes">Multicore CPU Emulation</property>
+      <!-- n-columns=2 n-rows=4 -->
+      <object class="GtkGrid">
+        <property name="name">General</property>
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="receives-default">False</property>
-        <property name="tooltip-text" translatable="yes">Whether to use multi-core for CPU emulation\nSets use_multi_core</property>
-        <property name="draw-indicator">True</property>
+        <property name="can-focus">False</property>
+        <property name="valign">start</property>
+        <property name="margin-start">8</property>
+        <property name="row-spacing">4</property>
+        <property name="column-spacing">4</property>
+        <property name="row-homogeneous">True</property>
+        <property name="column-homogeneous">True</property>
+        <child>
+          <object class="GtkCheckButton" id="check_button_use_speed_limit">
+            <property name="label" translatable="yes">Limit Speed Percent</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text" translatable="yes">Turns on the speed limiter, which will limit the emulation speed to the desired speed limit value\nSets use_speed_limit</property>
+            <property name="draw-indicator">True</property>
+            <signal name="toggled" handler="on_check_button_use_speed_limit_toggled" swapped="no"/>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="check_button_use_extended_memory_layout">
+            <property name="label" translatable="yes">Extended memory layout (6GB DRAM)</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text" translatable="yes">Enable extended guest system memory layout (6GB DRAM)\nSets use_extended_memory_layout</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="spin_button_fps_cap">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="tooltip-text" translatable="yes">Caps the unlocked framerate to a multiple of the title's target FPS.\nSets fps_cap</property>
+            <property name="input-purpose">number</property>
+            <property name="adjustment">adjustment2</property>
+            <property name="numeric">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="spin_button_speed_limit">
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can-focus">True</property>
+            <property name="tooltip-text" translatable="yes">Limits the speed of the game to run no faster than this value as a percentage of target speed\nSets speed_limit</property>
+            <property name="input-purpose">number</property>
+            <property name="adjustment">adjustment1</property>
+            <property name="numeric">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="tooltip-text" translatable="yes">Caps the unlocked framerate to a multiple of the title's target FPS.\nSets fps_cap</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Framerate Cap</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="check_button_use_multi_core">
+            <property name="label" translatable="yes">Multicore CPU Emulation</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text" translatable="yes">Whether to use multi-core for CPU emulation\nSets use_multi_core</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
       <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">2</property>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
       </packing>
-    </child>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <placeholder/>
     </child>
   </object>
 </interface>

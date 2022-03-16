@@ -14,6 +14,8 @@ add_glade_header_target(tab_general_glade
 )
 
 add_executable(yuzu-sdl-config
+    config.cpp
+    config.h
     main.cpp
     main_window.cpp
     main_window.glade
@@ -35,6 +37,8 @@ if (NOT WIN32)
     target_link_options(yuzu-sdl-config PRIVATE "LINKER:-export-dynamic")
 endif()
 
+target_link_libraries(yuzu-sdl-config PRIVATE common)
+target_include_directories(yuzu-sdl-config PRIVATE common)
 target_include_directories(yuzu-sdl-config PRIVATE ${PROJECT_BINARY_DIR}/src)
 target_include_directories(yuzu-sdl-config PRIVATE ${GTK3_INCLUDE_DIRS} ${GMODULE_EXPORT_INCLUDE_DIRS})
 target_link_libraries(yuzu-sdl-config PRIVATE ${GTK3_LIBRARIES} ${GMODULE_EXPORT_LIBRARIES})
