@@ -7,6 +7,7 @@
 #include <gtk/gtk.h>
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
+#include "yuzu_sdl_config/tab_general.h"
 
 namespace YuzuSdlConfig {
 
@@ -37,7 +38,7 @@ void MainWindow::BuildUi() {
     g_object_ref(window_main);
     g_object_unref(builder);
 
-    tab_general = std::make_unique<General>(*ini);
+    tab_general = std::make_unique<TabGeneral>(*ini);
 
     PopulateCategories();
 }

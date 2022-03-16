@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 #include <gtk/gtk.h>
-#include "yuzu_sdl_config/general.h"
+#include "yuzu_sdl_config/tab_general.h"
 
 namespace YuzuSdlConfig {
 class MainWindow {
@@ -19,7 +19,7 @@ public:
     GtkFileChooserButton* file_chooser_button_ini_path;
     GtkListBox* list_box_view_select;
 
-    std::unique_ptr<General> tab_general;
+    std::unique_ptr<TabGeneral> tab_general;
     std::unique_ptr<BasicIni> ini;
 
 private:

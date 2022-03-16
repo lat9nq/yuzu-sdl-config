@@ -5,14 +5,14 @@
 #include "yuzu_sdl_config/tab_general.h"
 
 namespace YuzuSdlConfig {
-General::General(BasicIni& ini_) : ini{ini_} {
+TabGeneral::TabGeneral(BasicIni& ini_) : ini{ini_} {
     BuildUi();
 }
-General::~General() = default;
+TabGeneral::~TabGeneral() = default;
 
-void General::BuildUi() {
+void TabGeneral::BuildUi() {
     GtkBuilder* builder =
-        gtk_builder_new_from_string(general_configuration, strlen(general_configuration));
+        gtk_builder_new_from_string(tab_general_configuration, strlen(tab_general_configuration));
     gtk_builder_connect_signals(builder, this);
 
     grid_general = GTK_GRID(gtk_builder_get_object(builder, "grid_general"));
@@ -30,7 +30,7 @@ void General::BuildUi() {
     g_object_unref(builder);
 }
 
-void General::UpdateUi() {
+void TabGeneral::UpdateUi() {
     bool use_extended_memory_layout;
     bool use_multi_core;
     bool use_speed_limit;
@@ -52,7 +52,7 @@ void General::UpdateUi() {
 }
 
 void on_check_button_use_speed_limit_toggled(GtkToggleButton* self, gpointer user_data) {
-    General* tab_general = static_cast<General*>(user_data);
+    TabGeneral* tab_general = static_cast<TabGeneral*>(user_data);
     assert(tab_general->check_button_use_speed_limit == GTK_CHECK_BUTTON(self));
 
     gtk_widget_set_sensitive(GTK_WIDGET(tab_general->spin_button_speed_limit),

@@ -1,5 +1,5 @@
 #pragma once
 
 namespace YuzuSdlConfig {
-const char* general_configuration = "@GENERAL_GLADE@";
+const char* tab_general_configuration = "@TAB_GENERAL_GLADE@";
 }

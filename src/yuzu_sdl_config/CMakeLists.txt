@@ -6,28 +6,28 @@ add_glade_header_target(main_window_glade
     MAIN_WINDOW_GLADE
     main_window.glade.h
 )
-add_glade_header_target(general_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/general.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/general.glade.h.in
-    GENERAL_GLADE
-    general.glade.h
+add_glade_header_target(tab_general_glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab_general.glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab_general.glade.h.in
+    TAB_GENERAL_GLADE
+    tab_general.glade.h
 )
 
 add_executable(yuzu-sdl-config
-    general.cpp
-    general.glade
-    general.glade.h.in
-    general.h
     main.cpp
     main_window.cpp
     main_window.glade
     main_window.glade.h.in
     main_window.h
+    tab_general.cpp
+    tab_general.glade
+    tab_general.glade.h.in
+    tab_general.h
 )
 
 add_dependencies(yuzu-sdl-config
     main_window_glade
-    general_glade
+    tab_general_glade
 )
 
 if (NOT WIN32)

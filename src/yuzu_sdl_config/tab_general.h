@@ -4,10 +4,10 @@
 #include <gtk/gtk.h>
 
 namespace YuzuSdlConfig {
-class General {
+class TabGeneral {
 public:
-    explicit General(BasicIni& ini_);
-    ~General();
+    explicit TabGeneral(BasicIni& ini_);
+    ~TabGeneral();
 
     GtkGrid* grid_general;
     GtkCheckButton* check_button_use_speed_limit;
