@@ -1,3 +1,6 @@
 [submodule "externals/basicini"]
 	path = externals/basicini
 	url = git@github.com:lat9nq/basicini.git
+[submodule "externals/yuzu"]
+	path = externals/yuzu
+	url = https://github.com/yuzu-emu/yuzu.git
