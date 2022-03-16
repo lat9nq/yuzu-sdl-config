@@ -51,6 +51,10 @@ void TabGeneral::UpdateUi() {
     gtk_spin_button_set_value(spin_button_speed_limit, speed_limit);
 }
 
+GtkWidget* TabGeneral::GetParent() {
+    return GTK_WIDGET(grid_general);
+}
+
 void on_check_button_use_speed_limit_toggled(GtkToggleButton* self, gpointer user_data) {
     TabGeneral* tab_general = static_cast<TabGeneral*>(user_data);
     assert(tab_general->check_button_use_speed_limit == GTK_CHECK_BUTTON(self));

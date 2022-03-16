@@ -23,6 +23,7 @@ add_executable(yuzu-sdl-config
     tab_general.glade
     tab_general.glade.h.in
     tab_general.h
+    tab.h
 )
 
 add_dependencies(yuzu-sdl-config

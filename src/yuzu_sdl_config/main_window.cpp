@@ -52,7 +52,7 @@ void MainWindow::UpdateUi() {
 
 void MainWindow::PopulateCategories() {
     const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{
-        {{"General", {GTK_WIDGET(tab_general->grid_general)}},
+        {{"General", {tab_general->GetParent()}},
          {"System", {}},
          {"CPU", {}},
          {"Graphics", {}},

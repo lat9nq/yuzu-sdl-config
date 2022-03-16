@@ -2,9 +2,10 @@
 
 #include <basicini/basicini.h>
 #include <gtk/gtk.h>
+#include "yuzu_sdl_config/tab.h"
 
 namespace YuzuSdlConfig {
-class TabGeneral {
+class TabGeneral : public Tab {
 public:
     explicit TabGeneral(BasicIni& ini_);
     ~TabGeneral();
@@ -16,7 +17,8 @@ public:
     GtkSpinButton* spin_button_fps_cap;
     GtkSpinButton* spin_button_speed_limit;
 
-    void UpdateUi();
+    void UpdateUi() override;
+    GtkWidget* GetParent() override;
 
 private:
     void BuildUi();

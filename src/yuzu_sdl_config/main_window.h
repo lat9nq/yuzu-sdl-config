@@ -3,9 +3,10 @@
 #include <memory>
 #include <vector>
 #include <gtk/gtk.h>
-#include "yuzu_sdl_config/tab_general.h"
 
 namespace YuzuSdlConfig {
+class TabGeneral;
+
 class MainWindow {
 public:
     explicit MainWindow(std::unique_ptr<BasicIni> ini_);
