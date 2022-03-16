@@ -68,6 +68,7 @@
     <child>
       <object class="GtkSpinButton" id="spin_button_speed_limit">
         <property name="visible">True</property>
+        <property name="sensitive">False</property>
         <property name="can-focus">True</property>
         <property name="input-purpose">number</property>
         <property name="adjustment">adjustment1</property>

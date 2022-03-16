@@ -1,4 +1,5 @@
 #include <cassert>
+#include <cstring>
 #include <memory>
 #include <gtk/gtk.h>
 #include "yuzu_sdl_config/main_window.glade.h"
@@ -17,6 +18,9 @@ void MainWindow::BuildUi() {
 
     window_main = GTK_WINDOW(gtk_builder_get_object(builder, "window_main"));
     notebook_view = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook_view"));
+    entry_ini_path = GTK_ENTRY(gtk_builder_get_object(builder, "entry_ini_path"));
+    file_chooser_button_ini_path =
+        GTK_FILE_CHOOSER_BUTTON(gtk_builder_get_object(builder, "file_chooser_button_ini_path"));
 
     g_object_ref(window_main);
     g_object_unref(builder);
@@ -32,6 +36,14 @@ void on_window_main_destroy(GtkWidget* caller, gpointer user_data) {
     assert(caller == GTK_WIDGET(window->window_main));
 
     gtk_main_quit();
+}
+
+void on_file_chooser_button_ini_path_selection_changed(GtkWidget* caller, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(caller == GTK_WIDGET(window->file_chooser_button_ini_path));
+
+    gtk_entry_set_text(window->entry_ini_path, gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(
+                                                   window->file_chooser_button_ini_path)));
 }
 
 void Start(int* argc, char*** argv) {
