@@ -1,4 +1,3 @@
-#include <cstdio>
 #include <string>
 #include <basicini/basicini.h>
 #include <common/common_types.h>

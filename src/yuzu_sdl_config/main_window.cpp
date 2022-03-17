@@ -17,6 +17,7 @@ namespace YuzuSdlConfig {
 MainWindow::MainWindow(std::unique_ptr<BasicIni> ini_, std::unique_ptr<Settings::Values> settings_)
     : ini{std::move(ini_)}, settings{std::move(settings_)} {
     BuildUi();
+    ReadIni();
     UpdateUi();
 }
 MainWindow::~MainWindow() {
@@ -54,13 +55,15 @@ void MainWindow::BuildUi() {
     PopulateCategories();
 }
 
-void MainWindow::UpdateUi() {
+void MainWindow::ReadIni() {
     BasicIniReader reader{*ini};
     reader.ReadFile();
     if (!reader.IsValid()) {
         ini->Clear();
     }
+}
 
+void MainWindow::UpdateUi() {
     gtk_window_set_title(window_main, ini->GetPath().string().c_str());
     LoadConfig(*ini, *settings);
 
@@ -136,6 +139,7 @@ void on_tool_button_open_clicked(GtkWidget* self, gpointer user_data) {
         char* filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
 
         window->ini->SetPath(filename);
+        window->ReadIni();
         window->UpdateUi();
 
         g_free(filename);
@@ -143,8 +147,22 @@ void on_tool_button_open_clicked(GtkWidget* self, gpointer user_data) {
     g_object_unref(native);
 }
 
-void on_tool_button_reset_clicked(GtkWidget* self, gpointer user_data) {}
-void on_tool_button_revert_clicked(GtkWidget* self, gpointer user_data) {}
+void on_tool_button_reset_clicked(GtkWidget* self, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(self == GTK_WIDGET(window->tool_button_reset));
+
+    window->ini->Clear();
+    window->UpdateUi();
+}
+
+void on_tool_button_revert_clicked(GtkWidget* self, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(self == GTK_WIDGET(window->tool_button_revert));
+
+    window->ReadIni();
+    window->UpdateUi();
+}
+
 void on_tool_button_save_as_clicked(GtkWidget* self, gpointer user_data) {}
 void on_tool_button_save_clicked(GtkWidget* self, gpointer user_data) {}
 

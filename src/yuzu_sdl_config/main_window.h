@@ -16,6 +16,7 @@ public:
                         std::unique_ptr<Settings::Values> settings_);
     ~MainWindow();
     void UpdateUi();
+    void ReadIni();
 
     const std::vector<GtkWidget*>& GetTabList(std::size_t index) const;
 
