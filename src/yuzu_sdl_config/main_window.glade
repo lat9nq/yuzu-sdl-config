@@ -2,38 +2,6 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
-  <object class="GtkPopover" id="popover1">
-    <property name="can-focus">False</property>
-    <child>
-      <object class="GtkButton">
-        <property name="label" translatable="yes">button</property>
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="receives-default">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkHeaderBar">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <property name="show-close-button">True</property>
-    <child>
-      <object class="GtkMenuButton">
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="focus-on-click">False</property>
-        <property name="receives-default">True</property>
-        <property name="popover">popover1</property>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes">File</property>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkWindow" id="window_main">
     <property name="width-request">900</property>
     <property name="height-request">700</property>
@@ -46,44 +14,135 @@
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-start">4</property>
-        <property name="margin-end">4</property>
-        <property name="margin-top">4</property>
-        <property name="margin-bottom">4</property>
         <property name="orientation">vertical</property>
         <property name="spacing">4</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="spacing">4</property>
             <child>
-              <object class="GtkEntry" id="entry_ini_path">
+              <object class="GtkToolbar">
                 <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="editable">False</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkMenuToolButton" id="tool_button_open">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">_Open</property>
+                    <property name="use-underline">True</property>
+                    <property name="icon-name">document-open</property>
+                    <signal name="clicked" handler="on_tool_button_open_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="tool_button_save">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">_Save</property>
+                    <property name="use-underline">True</property>
+                    <property name="icon-name">document-save</property>
+                    <signal name="clicked" handler="on_tool_button_save_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="tool_button_save_as">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Save _As</property>
+                    <property name="use-underline">True</property>
+                    <property name="icon-name">document-save-as</property>
+                    <signal name="clicked" handler="on_tool_button_save_as_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="tool_button_revert">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">_Revert</property>
+                    <property name="use-underline">True</property>
+                    <property name="icon-name">document-revert</property>
+                    <signal name="clicked" handler="on_tool_button_revert_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="tool_button_reset">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Reset to Defaults</property>
+                    <property name="use-underline">True</property>
+                    <property name="icon-name">view-refresh</property>
+                    <signal name="clicked" handler="on_tool_button_reset_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="tool_button_about">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Abou_t</property>
+                    <property name="use-underline">True</property>
+                    <property name="icon-name">help-about</property>
+                    <signal name="clicked" handler="on_tool_button_about_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">False</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFileChooserButton" id="file_chooser_button_ini_path">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="do-overwrite-confirmation">True</property>
-                <property name="preview-widget-active">False</property>
-                <property name="use-preview-label">False</property>
-                <property name="title" translatable="yes"/>
-                <signal name="selection-changed" handler="on_file_chooser_button_ini_path_selection_changed" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">0</property>
               </packing>
             </child>
           </object>
@@ -116,6 +175,7 @@
               <object class="GtkNotebook" id="notebook_view">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <property name="show-border">False</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -141,6 +201,51 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAboutDialog" id="about_dialog_main">
+    <property name="can-focus">False</property>
+    <property name="resizable">False</property>
+    <property name="window-position">center</property>
+    <property name="destroy-with-parent">True</property>
+    <property name="type-hint">normal</property>
+    <property name="deletable">False</property>
+    <property name="attached-to">window_main</property>
+    <property name="program-name">yuzu SDL Config</property>
+    <property name="authors">lat9nq</property>
+    <property name="logo-icon-name">yuzu</property>
+    <property name="license-type">gpl-2-0</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
+            <child>
+              <object class="GtkButton" id="button_about_close">
+                <property name="label" translatable="yes">Close</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="clicked" handler="on_button_about_close_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </object>

@@ -15,14 +15,22 @@ public:
     explicit MainWindow(std::unique_ptr<BasicIni> ini_,
                         std::unique_ptr<Settings::Values> settings_);
     ~MainWindow();
+    void UpdateUi();
 
     const std::vector<GtkWidget*>& GetTabList(std::size_t index) const;
 
     GtkWindow* window_main;
     GtkNotebook* notebook_view;
-    GtkEntry* entry_ini_path;
-    GtkFileChooserButton* file_chooser_button_ini_path;
     GtkListBox* list_box_view_select;
+    GtkToolButton* tool_button_about;
+    GtkToolButton* tool_button_open;
+    GtkToolButton* tool_button_save;
+    GtkToolButton* tool_button_save_as;
+    GtkToolButton* tool_button_revert;
+    GtkToolButton* tool_button_reset;
+
+    GtkAboutDialog* about_dialog_main;
+    GtkButton* button_about_close;
 
     std::unique_ptr<TabGeneral> tab_general;
     std::unique_ptr<TabDebug> tab_debug;
@@ -31,7 +39,6 @@ public:
 
 private:
     void BuildUi();
-    void UpdateUi();
     void ApplyUiConfiguration();
     void PopulateCategories();
 
@@ -39,9 +46,14 @@ private:
     std::vector<std::vector<GtkWidget*>> tab_list;
 };
 
+extern "C" G_MODULE_EXPORT void on_button_about_close_clicked(GtkWidget* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_about_clicked(GtkWidget* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_open_clicked(GtkWidget* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_reset_clicked(GtkWidget* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_revert_clicked(GtkWidget* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_save_as_clicked(GtkWidget* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_save_clicked(GtkWidget* self, gpointer user_data);
 extern "C" G_MODULE_EXPORT void on_window_main_destroy(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_file_chooser_button_ini_path_selection_changed(
-    GtkWidget* self, gpointer user_data);
 extern "C" G_MODULE_EXPORT void on_list_box_view_select_row_selected(GtkWidget* self,
                                                                      GtkListBoxRow* row,
                                                                      gpointer user_data);

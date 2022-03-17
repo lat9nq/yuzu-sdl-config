@@ -16,18 +16,11 @@ namespace YuzuSdlConfig {
 
 MainWindow::MainWindow(std::unique_ptr<BasicIni> ini_, std::unique_ptr<Settings::Values> settings_)
     : ini{std::move(ini_)}, settings{std::move(settings_)} {
-    BasicIniReader reader{*ini};
-    reader.ReadFile();
-    if (!reader.IsValid()) {
-        ini->Clear();
-    }
-
-    LoadConfig(*ini, *settings);
-
     BuildUi();
     UpdateUi();
 }
 MainWindow::~MainWindow() {
+    g_object_ref(about_dialog_main);
     g_object_unref(window_main);
 }
 
@@ -38,12 +31,20 @@ void MainWindow::BuildUi() {
 
     window_main = GTK_WINDOW(gtk_builder_get_object(builder, "window_main"));
     notebook_view = GTK_NOTEBOOK(gtk_builder_get_object(builder, "notebook_view"));
-    entry_ini_path = GTK_ENTRY(gtk_builder_get_object(builder, "entry_ini_path"));
-    file_chooser_button_ini_path =
-        GTK_FILE_CHOOSER_BUTTON(gtk_builder_get_object(builder, "file_chooser_button_ini_path"));
     list_box_view_select = GTK_LIST_BOX(gtk_builder_get_object(builder, "list_box_view_select"));
+    about_dialog_main = GTK_ABOUT_DIALOG(gtk_builder_get_object(builder, "about_dialog_main"));
+    button_about_close = GTK_BUTTON(gtk_builder_get_object(builder, "button_about_close"));
+    tool_button_about = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "tool_button_about"));
+    tool_button_open = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "tool_button_open"));
+    tool_button_save = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "tool_button_save"));
+    tool_button_save_as = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "tool_button_save_as"));
+    tool_button_reset = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "tool_button_reset"));
+    tool_button_revert = GTK_TOOL_BUTTON(gtk_builder_get_object(builder, "tool_button_revert"));
+
+    gtk_window_set_transient_for(GTK_WINDOW(about_dialog_main), window_main);
 
     g_object_ref(window_main);
+    g_object_ref(about_dialog_main);
     g_object_unref(builder);
 
     tab_general = std::make_unique<TabGeneral>(*settings);
@@ -54,20 +55,24 @@ void MainWindow::BuildUi() {
 }
 
 void MainWindow::UpdateUi() {
+    BasicIniReader reader{*ini};
+    reader.ReadFile();
+    if (!reader.IsValid()) {
+        ini->Clear();
+    }
+
+    gtk_window_set_title(window_main, ini->GetPath().string().c_str());
+    LoadConfig(*ini, *settings);
+
     tab_general->UpdateUi();
     tab_debug->UpdateUi();
     tab_web_service->UpdateUi();
-
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(file_chooser_button_ini_path),
-                                  ini->GetPath().string().c_str());
 }
 
 void MainWindow::ApplyUiConfiguration() {
     tab_general->ApplyUiConfiguration();
     tab_debug->ApplyUiConfiguration();
     tab_web_service->ApplyUiConfiguration();
-
-    ini->SetPath(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_button_ini_path)));
 }
 
 void MainWindow::PopulateCategories() {
@@ -99,19 +104,55 @@ const std::vector<GtkWidget*>& MainWindow::GetTabList(std::size_t index) const {
     return tab_list[index];
 }
 
+void on_button_about_close_clicked(GtkWidget* self, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(self == GTK_WIDGET(window->button_about_close));
+
+    gtk_widget_hide(GTK_WIDGET(window->about_dialog_main));
+}
+
+void on_tool_button_about_clicked(GtkWidget* self, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(self == GTK_WIDGET(window->tool_button_about));
+
+    gtk_widget_show(GTK_WIDGET(window->about_dialog_main));
+}
+
+void on_tool_button_open_clicked(GtkWidget* self, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(self == GTK_WIDGET(window->tool_button_open));
+
+    // ini_filter does not need to be manually unref'd since native takes ownership of it
+    GtkFileFilter* ini_filter = gtk_file_filter_new();
+    gtk_file_filter_add_mime_type(ini_filter, "text/ini");
+    gtk_file_filter_add_pattern(ini_filter, "*.ini");
+
+    GtkFileChooserNative* native = gtk_file_chooser_native_new(
+        "Open", window->window_main, GTK_FILE_CHOOSER_ACTION_OPEN, "_Open", "_Cancel");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(native), ini_filter);
+
+    int result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    if (result == GTK_RESPONSE_ACCEPT) {
+        char* filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
+
+        window->ini->SetPath(filename);
+        window->UpdateUi();
+
+        g_free(filename);
+    }
+    g_object_unref(native);
+}
+
+void on_tool_button_reset_clicked(GtkWidget* self, gpointer user_data) {}
+void on_tool_button_revert_clicked(GtkWidget* self, gpointer user_data) {}
+void on_tool_button_save_as_clicked(GtkWidget* self, gpointer user_data) {}
+void on_tool_button_save_clicked(GtkWidget* self, gpointer user_data) {}
+
 void on_window_main_destroy(GtkWidget* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
     assert(self == GTK_WIDGET(window->window_main));
 
     gtk_main_quit();
-}
-
-void on_file_chooser_button_ini_path_selection_changed(GtkWidget* self, gpointer user_data) {
-    MainWindow* window = static_cast<MainWindow*>(user_data);
-    assert(self == GTK_WIDGET(window->file_chooser_button_ini_path));
-
-    gtk_entry_set_text(window->entry_ini_path, gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(
-                                                   window->file_chooser_button_ini_path)));
 }
 
 void on_list_box_view_select_row_selected(GtkWidget* self, GtkListBoxRow* row, gpointer user_data) {
