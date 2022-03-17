@@ -1,0 +1,5 @@
+#pragma once
+
+namespace YuzuSdlConfig {
+const char* tab_debug_configuration = "@TAB_DEBUG_GLADE@";
+}

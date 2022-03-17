@@ -8,6 +8,7 @@
 #include "yuzu_sdl_config/config.h"
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
+#include "yuzu_sdl_config/tab_debug.h"
 #include "yuzu_sdl_config/tab_general.h"
 
 namespace YuzuSdlConfig {
@@ -25,7 +26,9 @@ MainWindow::MainWindow(std::unique_ptr<BasicIni> ini_, std::unique_ptr<Settings:
     BuildUi();
     UpdateUi();
 }
-MainWindow::~MainWindow() = default;
+MainWindow::~MainWindow() {
+    g_object_unref(window_main);
+}
 
 void MainWindow::BuildUi() {
     GtkBuilder* builder =
@@ -43,12 +46,14 @@ void MainWindow::BuildUi() {
     g_object_unref(builder);
 
     tab_general = std::make_unique<TabGeneral>(*settings);
+    tab_debug = std::make_unique<TabDebug>(*settings);
 
     PopulateCategories();
 }
 
 void MainWindow::UpdateUi() {
     tab_general->UpdateUi();
+    tab_debug->UpdateUi();
 
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(file_chooser_button_ini_path),
                                   ini->GetPath().string().c_str());
@@ -56,7 +61,7 @@ void MainWindow::UpdateUi() {
 
 void MainWindow::PopulateCategories() {
     const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{
-        {{"General", {tab_general->GetParent()}},
+        {{"General", {tab_general->GetParent(), tab_debug->GetParent()}},
          {"System", {}},
          {"CPU", {}},
          {"Graphics", {}},
@@ -64,6 +69,7 @@ void MainWindow::PopulateCategories() {
          {"Controls", {}}},
     };
 
+    tab_list.clear();
     for (const auto& category : categories) {
         auto label = gtk_label_new(category.first);
         gtk_widget_set_halign(GTK_WIDGET(label), GTK_ALIGN_START);

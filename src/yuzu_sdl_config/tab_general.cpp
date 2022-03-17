@@ -10,7 +10,9 @@ namespace YuzuSdlConfig {
 TabGeneral::TabGeneral(Settings::Values& settings_) : settings{settings_} {
     BuildUi();
 }
-TabGeneral::~TabGeneral() = default;
+TabGeneral::~TabGeneral() {
+    g_object_unref(box_general);
+}
 
 void TabGeneral::BuildUi() {
     GtkBuilder* builder =

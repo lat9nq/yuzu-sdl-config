@@ -25,7 +25,7 @@ public:
     GtkWidget* GetParent() const override;
 
 private:
-    void BuildUi();
+    void BuildUi() override;
     Settings::Values& settings;
 };
 
