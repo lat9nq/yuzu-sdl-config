@@ -62,6 +62,14 @@ void MainWindow::UpdateUi() {
                                   ini->GetPath().string().c_str());
 }
 
+void MainWindow::ApplyUiConfiguration() {
+    tab_general->ApplyUiConfiguration();
+    tab_debug->ApplyUiConfiguration();
+    tab_web_service->ApplyUiConfiguration();
+
+    ini->SetPath(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(file_chooser_button_ini_path)));
+}
+
 void MainWindow::PopulateCategories() {
     const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{
         {{"General",

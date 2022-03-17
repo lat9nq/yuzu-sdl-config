@@ -45,7 +45,17 @@ void TabGeneral::UpdateUi() {
     gtk_spin_button_set_value(spin_button_speed_limit, settings.speed_limit.GetValue());
 }
 
-void TabGeneral::ApplyUiConfiguration() {}
+void TabGeneral::ApplyUiConfiguration() {
+    settings.use_speed_limit =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_use_speed_limit));
+    settings.use_extended_memory_layout =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_use_extended_memory_layout));
+    settings.use_multi_core =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_use_multi_core));
+    settings.fps_cap = static_cast<u16>(gtk_spin_button_get_value_as_int(spin_button_fps_cap));
+    settings.speed_limit =
+        static_cast<u16>(gtk_spin_button_get_value_as_int(spin_button_speed_limit));
+}
 
 GtkWidget* TabGeneral::GetParent() const {
     return GTK_WIDGET(box_general);

@@ -32,6 +32,7 @@ public:
 private:
     void BuildUi();
     void UpdateUi();
+    void ApplyUiConfiguration();
     void PopulateCategories();
 
     std::unique_ptr<Settings::Values> settings;

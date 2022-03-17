@@ -2,15 +2,37 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
-  <object class="GtkImage" id="image_reset">
-    <property name="visible">True</property>
+  <object class="GtkPopover" id="popover1">
     <property name="can-focus">False</property>
-    <property name="icon-name">document-revert</property>
+    <child>
+      <object class="GtkButton">
+        <property name="label" translatable="yes">button</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="receives-default">True</property>
+      </object>
+    </child>
   </object>
-  <object class="GtkImage" id="image_save">
+  <object class="GtkHeaderBar">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
-    <property name="icon-name">document-save</property>
+    <property name="show-close-button">True</property>
+    <child>
+      <object class="GtkMenuButton">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="focus-on-click">False</property>
+        <property name="receives-default">True</property>
+        <property name="popover">popover1</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">File</property>
+          </object>
+        </child>
+      </object>
+    </child>
   </object>
   <object class="GtkWindow" id="window_main">
     <property name="width-request">900</property>
@@ -109,53 +131,11 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="GtkStatusbar" id="status_bar_main">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="spacing">4</property>
-            <child>
-              <object class="GtkStatusbar" id="status_bar_main">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">2</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button_save">
-                <property name="label" translatable="yes">Save</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="image">image_save</property>
-                <property name="always-show-image">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button_reset">
-                <property name="label" translatable="yes">Reset</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="image">image_reset</property>
-                <property name="always-show-image">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
           </object>
           <packing>
             <property name="expand">False</property>

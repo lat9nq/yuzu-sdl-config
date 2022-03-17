@@ -20,7 +20,12 @@ void TabWebService::UpdateUi() {
                                  settings.enable_telemetry.GetValue());
 }
 
-void TabWebService::ApplyUiConfiguration() {}
+void TabWebService::ApplyUiConfiguration() {
+    settings.yuzu_username = gtk_entry_get_text(entry_yuzu_username);
+    settings.yuzu_token = gtk_entry_get_text(entry_yuzu_token);
+    settings.enable_telemetry =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_enable_telemetry));
+}
 
 GtkWidget* TabWebService::GetParent() const {
     return GTK_WIDGET(box_web_service);
