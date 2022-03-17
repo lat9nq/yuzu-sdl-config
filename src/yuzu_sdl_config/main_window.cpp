@@ -8,8 +8,8 @@
 #include "yuzu_sdl_config/config.h"
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
-#include "yuzu_sdl_config/tab_debug.h"
-#include "yuzu_sdl_config/tab_general.h"
+#include "yuzu_sdl_config/tab/debug.h"
+#include "yuzu_sdl_config/tab/general.h"
 
 namespace YuzuSdlConfig {
 

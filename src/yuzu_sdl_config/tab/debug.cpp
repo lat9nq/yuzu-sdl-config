@@ -1,7 +1,7 @@
 #include <cstring>
 #include <common/settings.h>
-#include "yuzu_sdl_config/tab_debug.glade.h"
-#include "yuzu_sdl_config/tab_debug.h"
+#include "yuzu_sdl_config/tab/debug.glade.h"
+#include "yuzu_sdl_config/tab/debug.h"
 
 namespace YuzuSdlConfig {
 TabDebug::TabDebug(Settings::Values& settings_) : settings{settings_} {

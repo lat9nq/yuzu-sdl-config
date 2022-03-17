@@ -7,16 +7,22 @@ add_glade_header_target(main_window_glade
     main_window.glade.h
 )
 add_glade_header_target(tab_general_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab_general.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab_general.glade.h.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/general.glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/general.glade.h.in
     TAB_GENERAL_GLADE
-    tab_general.glade.h
+    tab/general.glade.h
 )
 add_glade_header_target(tab_debug_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab_debug.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab_debug.glade.h.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/debug.glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/debug.glade.h.in
     TAB_DEBUG_GLADE
-    tab_debug.glade.h
+    tab/debug.glade.h
+)
+add_glade_header_target(tab_web_service_glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/web_service.glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/web_service.glade.h.in
+    TAB_WEB_SERVICE_GLADE
+    tab/web_service.glade.h
 )
 
 add_executable(yuzu-sdl-config
@@ -27,25 +33,26 @@ add_executable(yuzu-sdl-config
     main_window.glade
     main_window.glade.h.in
     main_window.h
-    tab.h
-    tab_debug.cpp
-    tab_debug.glade
-    tab_debug.glade.h.in
-    tab_debug.h
-    tab_general.cpp
-    tab_general.glade
-    tab_general.glade.h.in
-    tab_general.h
-    #~ tab_web_service.cpp
-    #~ tab_web_service.glade
-    #~ tab_web_service.glade.h.in
-    #~ tab_web_service.h
+    tab/tab.h
+    tab/debug.cpp
+    tab/debug.glade
+    tab/debug.glade.h.in
+    tab/debug.h
+    tab/general.cpp
+    tab/general.glade
+    tab/general.glade.h.in
+    tab/general.h
+    tab/web_service.cpp
+    tab/web_service.glade
+    tab/web_service.glade.h.in
+    tab/web_service.h
 )
 
 add_dependencies(yuzu-sdl-config
     main_window_glade
     tab_general_glade
     tab_debug_glade
+    tab_web_service_glade
 )
 
 if (NOT WIN32)

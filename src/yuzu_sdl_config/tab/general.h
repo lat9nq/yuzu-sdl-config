@@ -2,7 +2,7 @@
 
 #include <basicini/basicini.h>
 #include <gtk/gtk.h>
-#include "yuzu_sdl_config/tab.h"
+#include "yuzu_sdl_config/tab/tab.h"
 
 namespace Settings {
 struct Values;

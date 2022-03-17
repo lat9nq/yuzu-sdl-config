@@ -3,8 +3,8 @@
 #include <common/common_types.h>
 #include <common/settings.h>
 #include <gtk/gtk.h>
-#include "yuzu_sdl_config/tab_general.glade.h"
-#include "yuzu_sdl_config/tab_general.h"
+#include "yuzu_sdl_config/tab/general.glade.h"
+#include "yuzu_sdl_config/tab/general.h"
 
 namespace YuzuSdlConfig {
 TabGeneral::TabGeneral(Settings::Values& settings_) : settings{settings_} {
