@@ -31,12 +31,5 @@ find_package(lz4 1.8 REQUIRED)
 function(create_target_directory_groups target_name)
 endfunction()
 
-# Platform-agnostic definition to check if we are on x86_64 -- for yuzu's xbyak requirement
-if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "[xX]86_64" OR
-   ${CMAKE_SYSTEM_PROCESSOR} MATCHES "[aA][mM][dD]64")
-    set(ARCHITECTURE_x86_64 1)
-    add_definitions(-DARCHITECTURE_x86_64=1)
-endif()
-
 add_subdirectory(externals)
 add_subdirectory(src)
