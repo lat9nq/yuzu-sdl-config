@@ -45,6 +45,8 @@ void TabGeneral::UpdateUi() {
     gtk_spin_button_set_value(spin_button_speed_limit, settings.speed_limit.GetValue());
 }
 
+void TabGeneral::ApplyUiConfiguration() {}
+
 GtkWidget* TabGeneral::GetParent() const {
     return GTK_WIDGET(box_general);
 }

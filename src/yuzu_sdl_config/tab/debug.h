@@ -36,6 +36,7 @@ public:
     GtkCheckButton* check_button_use_auto_stub;
 
     void UpdateUi() override;
+    void ApplyUiConfiguration() override;
     GtkWidget* GetParent() const override;
 
 private:

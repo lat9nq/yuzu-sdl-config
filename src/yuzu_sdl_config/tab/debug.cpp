@@ -94,6 +94,43 @@ void TabDebug::UpdateUi() {
                                  settings.use_auto_stub.GetValue());
 }
 
+void TabDebug::ApplyUiConfiguration() {
+    // Logging
+    settings.log_filter = gtk_entry_get_text(entry_log_filter);
+    settings.extended_logging =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_extended_logging));
+    // Graphics
+    settings.renderer_debug =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_renderer_debug));
+    settings.disable_macro_jit =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_disable_macro_jit));
+    settings.renderer_shader_feedback =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_renderer_shader_feedback));
+    settings.disable_shader_loop_safety_checks = gtk_toggle_button_get_active(
+        GTK_TOGGLE_BUTTON(check_button_disable_shader_loop_safety_checks));
+    settings.disable_shader_loop_safety_checks =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_enable_nsight_aftermath));
+    settings.enable_nsight_aftermath =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_enable_nsight_aftermath));
+    settings.dump_shaders =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_dump_shaders));
+    // Debugging
+    settings.enable_fs_access_log =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_enable_fs_access_log));
+    settings.reporting_services =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_reporting_services));
+    // Advanced
+    settings.quest_flag = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_quest_flag));
+    settings.cpu_debug_mode =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_cpu_debug_mode));
+    settings.enable_all_controllers =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_enable_all_controllers));
+    settings.use_debug_asserts =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_use_debug_asserts));
+    settings.use_auto_stub =
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check_button_use_auto_stub));
+}
+
 GtkWidget* TabDebug::GetParent() const {
     return GTK_WIDGET(box_debug);
 }

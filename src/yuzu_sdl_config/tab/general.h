@@ -22,6 +22,7 @@ public:
     GtkSpinButton* spin_button_speed_limit;
 
     void UpdateUi() override;
+    void ApplyUiConfiguration() override;
     GtkWidget* GetParent() const override;
 
 private:

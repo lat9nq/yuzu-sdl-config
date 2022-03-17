@@ -9,6 +9,7 @@ public:
     virtual ~Tab(){};
 
     virtual void UpdateUi() = 0;
+    virtual void ApplyUiConfiguration() = 0;
     virtual GtkWidget* GetParent() const = 0;
 
 private:

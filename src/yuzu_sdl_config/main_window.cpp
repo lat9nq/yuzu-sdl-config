@@ -10,6 +10,7 @@
 #include "yuzu_sdl_config/main_window.h"
 #include "yuzu_sdl_config/tab/debug.h"
 #include "yuzu_sdl_config/tab/general.h"
+#include "yuzu_sdl_config/tab/web_service.h"
 
 namespace YuzuSdlConfig {
 
@@ -47,6 +48,7 @@ void MainWindow::BuildUi() {
 
     tab_general = std::make_unique<TabGeneral>(*settings);
     tab_debug = std::make_unique<TabDebug>(*settings);
+    tab_web_service = std::make_unique<TabWebService>(*settings);
 
     PopulateCategories();
 }
@@ -54,6 +56,7 @@ void MainWindow::BuildUi() {
 void MainWindow::UpdateUi() {
     tab_general->UpdateUi();
     tab_debug->UpdateUi();
+    tab_web_service->UpdateUi();
 
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(file_chooser_button_ini_path),
                                   ini->GetPath().string().c_str());
@@ -61,7 +64,8 @@ void MainWindow::UpdateUi() {
 
 void MainWindow::PopulateCategories() {
     const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{
-        {{"General", {tab_general->GetParent(), tab_debug->GetParent()}},
+        {{"General",
+          {tab_general->GetParent(), tab_web_service->GetParent(), tab_debug->GetParent()}},
          {"System", {}},
          {"CPU", {}},
          {"Graphics", {}},

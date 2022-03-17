@@ -8,6 +8,7 @@
 namespace YuzuSdlConfig {
 class TabGeneral;
 class TabDebug;
+class TabWebService;
 
 class MainWindow {
 public:
@@ -25,6 +26,7 @@ public:
 
     std::unique_ptr<TabGeneral> tab_general;
     std::unique_ptr<TabDebug> tab_debug;
+    std::unique_ptr<TabWebService> tab_web_service;
     std::unique_ptr<BasicIni> ini;
 
 private:

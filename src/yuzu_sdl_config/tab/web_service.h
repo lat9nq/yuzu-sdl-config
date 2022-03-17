@@ -20,6 +20,7 @@ public:
     GtkCheckButton* check_button_enable_telemetry;
 
     void UpdateUi() override;
+    void ApplyUiConfiguration() override;
     GtkWidget* GetParent() const override;
 
 private:
