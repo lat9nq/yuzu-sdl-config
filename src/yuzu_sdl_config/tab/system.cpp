@@ -20,8 +20,8 @@ void TabSystem::UpdateUi() {}
 void TabSystem::ApplyUiConfiguration() {}
 
 void TabSystem::BuildUi() {
-    GtkBuilder* builder = gtk_builder_new_from_string(tab_system_configuration,
-                                                      std::strlen(tab_system_configuration));
+    GtkBuilder* builder =
+        gtk_builder_new_from_string(system_configuration, std::strlen(system_configuration));
     gtk_builder_connect_signals(builder, this);
 
     box_system = GTK_BOX(gtk_builder_get_object(builder, "box_system"));

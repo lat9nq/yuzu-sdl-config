@@ -1,5 +1,0 @@
-#pragma once
-
-namespace YuzuSdlConfig {
-const char* tab_web_service_configuration = "@TAB_WEB_SERVICE_GLADE@";
-}

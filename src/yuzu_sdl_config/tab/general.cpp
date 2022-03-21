@@ -16,7 +16,7 @@ TabGeneral::~TabGeneral() {
 
 void TabGeneral::BuildUi() {
     GtkBuilder* builder =
-        gtk_builder_new_from_string(tab_general_configuration, strlen(tab_general_configuration));
+        gtk_builder_new_from_string(general_configuration, strlen(general_configuration));
     gtk_builder_connect_signals(builder, this);
 
     box_general = GTK_BOX(gtk_builder_get_object(builder, "box_general"));

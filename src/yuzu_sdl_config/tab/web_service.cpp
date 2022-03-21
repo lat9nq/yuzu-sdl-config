@@ -32,8 +32,8 @@ GtkWidget* TabWebService::GetParent() const {
 }
 
 void TabWebService::BuildUi() {
-    GtkBuilder* builder = gtk_builder_new_from_string(tab_web_service_configuration,
-                                                      strlen(tab_web_service_configuration));
+    GtkBuilder* builder =
+        gtk_builder_new_from_string(web_service_configuration, strlen(web_service_configuration));
     gtk_builder_connect_signals(builder, this);
 
     box_web_service = GTK_BOX(gtk_builder_get_object(builder, "box_web_service"));

@@ -1,5 +1,0 @@
-#pragma once
-
-namespace YuzuSdlConfig {
-const char* main_window_configuration = "@MAIN_WINDOW_GLADE@";
-}

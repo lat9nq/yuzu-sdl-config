@@ -14,7 +14,7 @@ TabDebug::~TabDebug() {
 
 void TabDebug::BuildUi() {
     GtkBuilder* builder =
-        gtk_builder_new_from_string(tab_debug_configuration, strlen(tab_debug_configuration));
+        gtk_builder_new_from_string(debug_configuration, strlen(debug_configuration));
     gtk_builder_connect_signals(builder, this);
 
     box_debug = GTK_BOX(gtk_builder_get_object(builder, "box_debug"));

@@ -1,70 +1,64 @@
-include(${PROJECT_SOURCE_DIR}/CMakeModules/AddGladeHeaderTarget.cmake)
-
-add_glade_header_target(main_window_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/main_window.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/main_window.glade.h.in
-    MAIN_WINDOW_GLADE
-    main_window.glade.h
-)
-add_glade_header_target(tab_general_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/general.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/general.glade.h.in
-    TAB_GENERAL_GLADE
-    tab/general.glade.h
-)
-add_glade_header_target(tab_debug_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/debug.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/debug.glade.h.in
-    TAB_DEBUG_GLADE
-    tab/debug.glade.h
-)
-add_glade_header_target(tab_web_service_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/web_service.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/web_service.glade.h.in
-    TAB_WEB_SERVICE_GLADE
-    tab/web_service.glade.h
-)
-add_glade_header_target(tab_system_glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/system.glade
-    ${CMAKE_CURRENT_SOURCE_DIR}/tab/system.glade.h.in
-    TAB_SYSTEM_GLADE
-    tab/system.glade.h
-)
-
 add_executable(yuzu-sdl-config
     config.cpp
     config.h
     main.cpp
     main_window.cpp
     main_window.glade
-    main_window.glade.h.in
     main_window.h
-    tab/tab.h
     tab/debug.cpp
     tab/debug.glade
-    tab/debug.glade.h.in
     tab/debug.h
     tab/general.cpp
     tab/general.glade
-    tab/general.glade.h.in
     tab/general.h
-    tab/web_service.cpp
-    tab/web_service.glade
-    tab/web_service.glade.h.in
-    tab/web_service.h
     tab/system.cpp
     tab/system.glade
-    tab/system.glade.h.in
     tab/system.h
+    tab/tab.h
+    tab/web_service.cpp
+    tab/web_service.glade
+    tab/web_service.h
 )
 
-add_dependencies(yuzu-sdl-config
-    main_window_glade
-    tab_general_glade
-    tab_debug_glade
-    tab_web_service_glade
-    tab_system_glade
+set(GLADE_FILES
+    main_window.glade
+    tab/debug.glade
+    tab/general.glade
+    tab/system.glade
+    tab/web_service.glade
 )
+
+set(GLADE_HEADER_GENERATOR ${PROJECT_SOURCE_DIR}/CMakeModules/GenerateHeaderFromGlade.cmake)
+set(GLADE_TEMPLATE ${CMAKE_CURRENT_SOURCE_DIR}/tab/glade.h.in)
+
+foreach(GLADE_FILE ${GLADE_FILES})
+    get_filename_component(TAB_NAME ${GLADE_FILE} NAME_WE)
+    set(TAB_NAME ${TAB_NAME}_configuration)
+    set(GLADE_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/${GLADE_FILE})
+    set(GLADE_HEADER ${CMAKE_CURRENT_BINARY_DIR}/${GLADE_FILE}.h)
+    add_custom_command(
+        OUTPUT
+            ${GLADE_HEADER}
+        COMMAND
+            ${CMAKE_COMMAND} -P ${GLADE_HEADER_GENERATOR} ${GLADE_SOURCE} ${GLADE_HEADER} ${TAB_NAME} ${GLADE_TEMPLATE}
+        MAIN_DEPENDENCY
+            ${GLADE_SOURCE}
+        DEPENDS
+            ${GLADE_HEADER_GENERATOR}
+            ${GLADE_TEMPLATE}
+    )
+    message(STATUS ${GLADE_HEADER})
+    list(APPEND GLADE_HEADERS ${GLADE_HEADER})
+endforeach()
+
+add_custom_target(glade_headers
+DEPENDS
+    ${GLADE_HEADERS}
+SOURCES
+    ${GLADE_FILES}
+)
+
+target_link_libraries(yuzu-sdl-config INTERFACE glade_headers)
 
 if (NOT WIN32)
     target_link_options(yuzu-sdl-config PRIVATE "LINKER:-export-dynamic")
