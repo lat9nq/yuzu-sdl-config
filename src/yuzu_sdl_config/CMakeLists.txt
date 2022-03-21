@@ -27,9 +27,9 @@ set(GLADE_FILES
     main_window.glade
     tab/debug.glade
     tab/general.glade
+    tab/network.glade
     tab/system.glade
     tab/web_service.glade
-    tab/network.glade
 )
 
 set(GLADE_HEADER_GENERATOR ${PROJECT_SOURCE_DIR}/CMakeModules/GenerateHeaderFromGlade.cmake)
