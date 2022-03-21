@@ -33,7 +33,7 @@ GtkWidget* TabNetwork::GetParent() const {
 }
 
 void TabNetwork::BuildUi() {
-    GtkBuilder* builder = gtk_builder_new_from_string(network_glade, strlen(network_glade));
+    GtkBuilder* builder = gtk_builder_new_from_string(network_glade, -1);
     gtk_builder_connect_signals(builder, this);
 
     box_network = GTK_BOX(gtk_builder_get_object(builder, "box_network"));

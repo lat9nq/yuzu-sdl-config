@@ -1,5 +1,4 @@
 #include <cassert>
-#include <cstring>
 #include <memory>
 #include <vector>
 #include <basicini/basicini.h>
@@ -28,7 +27,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::BuildUi() {
-    GtkBuilder* builder = gtk_builder_new_from_string(main_window_glade, strlen(main_window_glade));
+    GtkBuilder* builder = gtk_builder_new_from_string(main_window_glade, -1);
     gtk_builder_connect_signals(builder, this);
 
     window_main = GTK_WINDOW(gtk_builder_get_object(builder, "window_main"));

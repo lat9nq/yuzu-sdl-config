@@ -1,4 +1,3 @@
-#include <cstring>
 #include <common/settings.h>
 #include "yuzu_sdl_config/tab/debug.glade.h"
 #include "yuzu_sdl_config/tab/debug.h"
@@ -13,7 +12,7 @@ TabDebug::~TabDebug() {
 }
 
 void TabDebug::BuildUi() {
-    GtkBuilder* builder = gtk_builder_new_from_string(debug_glade, strlen(debug_glade));
+    GtkBuilder* builder = gtk_builder_new_from_string(debug_glade, -1);
     gtk_builder_connect_signals(builder, this);
 
     box_debug = GTK_BOX(gtk_builder_get_object(builder, "box_debug"));

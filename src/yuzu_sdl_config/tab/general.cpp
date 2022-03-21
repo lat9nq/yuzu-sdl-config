@@ -1,5 +1,4 @@
 #include <cassert>
-#include <cstring>
 #include <common/common_types.h>
 #include <common/settings.h>
 #include <gtk/gtk.h>
@@ -15,7 +14,7 @@ TabGeneral::~TabGeneral() {
 }
 
 void TabGeneral::BuildUi() {
-    GtkBuilder* builder = gtk_builder_new_from_string(general_glade, strlen(general_glade));
+    GtkBuilder* builder = gtk_builder_new_from_string(general_glade, -1);
     gtk_builder_connect_signals(builder, this);
 
     box_general = GTK_BOX(gtk_builder_get_object(builder, "box_general"));
