@@ -1,0 +1,5 @@
+#pragma once
+
+namespace YuzuSdlConfig {
+const char* tab_system_configuration = "@TAB_SYSTEM_GLADE@";
+}

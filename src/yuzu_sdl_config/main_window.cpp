@@ -10,6 +10,7 @@
 #include "yuzu_sdl_config/main_window.h"
 #include "yuzu_sdl_config/tab/debug.h"
 #include "yuzu_sdl_config/tab/general.h"
+#include "yuzu_sdl_config/tab/system.h"
 #include "yuzu_sdl_config/tab/web_service.h"
 
 namespace YuzuSdlConfig {
@@ -51,6 +52,7 @@ void MainWindow::BuildUi() {
     tab_general = std::make_unique<TabGeneral>(*settings);
     tab_debug = std::make_unique<TabDebug>(*settings);
     tab_web_service = std::make_unique<TabWebService>(*settings);
+    tab_system = std::make_unique<TabSystem>(*settings);
 
     PopulateCategories();
 }
@@ -70,19 +72,21 @@ void MainWindow::UpdateUi() {
     tab_general->UpdateUi();
     tab_debug->UpdateUi();
     tab_web_service->UpdateUi();
+    tab_system->UpdateUi();
 }
 
 void MainWindow::ApplyUiConfiguration() {
     tab_general->ApplyUiConfiguration();
     tab_debug->ApplyUiConfiguration();
     tab_web_service->ApplyUiConfiguration();
+    tab_system->ApplyUiConfiguration();
 }
 
 void MainWindow::PopulateCategories() {
     const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{
         {{"General",
           {tab_general->GetParent(), tab_web_service->GetParent(), tab_debug->GetParent()}},
-         {"System", {}},
+         {"System", {tab_system->GetParent()}},
          {"CPU", {}},
          {"Graphics", {}},
          {"Audio", {}},

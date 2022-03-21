@@ -30,5 +30,6 @@ private:
     Settings::Values& settings;
 };
 
-extern "C" void on_check_button_use_speed_limit_toggled(GtkToggleButton* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_check_button_use_speed_limit_toggled(GtkToggleButton* self,
+                                                                        gpointer user_data);
 } // namespace YuzuSdlConfig

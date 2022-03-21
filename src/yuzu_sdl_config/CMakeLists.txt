@@ -24,6 +24,12 @@ add_glade_header_target(tab_web_service_glade
     TAB_WEB_SERVICE_GLADE
     tab/web_service.glade.h
 )
+add_glade_header_target(tab_system_glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/system.glade
+    ${CMAKE_CURRENT_SOURCE_DIR}/tab/system.glade.h.in
+    TAB_SYSTEM_GLADE
+    tab/system.glade.h
+)
 
 add_executable(yuzu-sdl-config
     config.cpp
@@ -46,6 +52,10 @@ add_executable(yuzu-sdl-config
     tab/web_service.glade
     tab/web_service.glade.h.in
     tab/web_service.h
+    tab/system.cpp
+    tab/system.glade
+    tab/system.glade.h.in
+    tab/system.h
 )
 
 add_dependencies(yuzu-sdl-config
@@ -53,6 +63,7 @@ add_dependencies(yuzu-sdl-config
     tab_general_glade
     tab_debug_glade
     tab_web_service_glade
+    tab_system_glade
 )
 
 if (NOT WIN32)
