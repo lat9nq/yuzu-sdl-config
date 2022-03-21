@@ -11,6 +11,9 @@ add_executable(yuzu-sdl-config
     tab/general.cpp
     tab/general.glade
     tab/general.h
+    tab/network.cpp
+    tab/network.glade
+    tab/network.h
     tab/system.cpp
     tab/system.glade
     tab/system.h
@@ -26,6 +29,7 @@ set(GLADE_FILES
     tab/general.glade
     tab/system.glade
     tab/web_service.glade
+    tab/network.glade
 )
 
 set(GLADE_HEADER_GENERATOR ${PROJECT_SOURCE_DIR}/CMakeModules/GenerateHeaderFromGlade.cmake)
@@ -33,7 +37,7 @@ set(GLADE_TEMPLATE ${CMAKE_CURRENT_SOURCE_DIR}/tab/glade.h.in)
 
 foreach(GLADE_FILE ${GLADE_FILES})
     get_filename_component(TAB_NAME ${GLADE_FILE} NAME_WE)
-    set(TAB_NAME ${TAB_NAME}_configuration)
+    set(TAB_NAME ${TAB_NAME}_glade)
     set(GLADE_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/${GLADE_FILE})
     set(GLADE_HEADER ${CMAKE_CURRENT_BINARY_DIR}/${GLADE_FILE}.h)
     add_custom_command(
@@ -47,7 +51,6 @@ foreach(GLADE_FILE ${GLADE_FILES})
             ${GLADE_HEADER_GENERATOR}
             ${GLADE_TEMPLATE}
     )
-    message(STATUS ${GLADE_HEADER})
     list(APPEND GLADE_HEADERS ${GLADE_HEADER})
 endforeach()
 
@@ -57,6 +60,7 @@ DEPENDS
 SOURCES
     ${GLADE_FILES}
 )
+unset(GLADE_HEADERS)
 
 target_link_libraries(yuzu-sdl-config INTERFACE glade_headers)
 

@@ -10,6 +10,7 @@
 #include "yuzu_sdl_config/main_window.h"
 #include "yuzu_sdl_config/tab/debug.h"
 #include "yuzu_sdl_config/tab/general.h"
+#include "yuzu_sdl_config/tab/network.h"
 #include "yuzu_sdl_config/tab/system.h"
 #include "yuzu_sdl_config/tab/web_service.h"
 
@@ -27,8 +28,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::BuildUi() {
-    GtkBuilder* builder =
-        gtk_builder_new_from_string(main_window_configuration, strlen(main_window_configuration));
+    GtkBuilder* builder = gtk_builder_new_from_string(main_window_glade, strlen(main_window_glade));
     gtk_builder_connect_signals(builder, this);
 
     window_main = GTK_WINDOW(gtk_builder_get_object(builder, "window_main"));
@@ -53,6 +53,7 @@ void MainWindow::BuildUi() {
     tab_debug = std::make_unique<TabDebug>(*settings);
     tab_web_service = std::make_unique<TabWebService>(*settings);
     tab_system = std::make_unique<TabSystem>(*settings);
+    tab_network = std::make_unique<TabNetwork>(*settings);
 
     PopulateCategories();
 }
@@ -73,6 +74,7 @@ void MainWindow::UpdateUi() {
     tab_debug->UpdateUi();
     tab_web_service->UpdateUi();
     tab_system->UpdateUi();
+    tab_network->UpdateUi();
 }
 
 void MainWindow::ApplyUiConfiguration() {
@@ -80,13 +82,14 @@ void MainWindow::ApplyUiConfiguration() {
     tab_debug->ApplyUiConfiguration();
     tab_web_service->ApplyUiConfiguration();
     tab_system->ApplyUiConfiguration();
+    tab_network->ApplyUiConfiguration();
 }
 
 void MainWindow::PopulateCategories() {
     const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{
         {{"General",
           {tab_general->GetParent(), tab_web_service->GetParent(), tab_debug->GetParent()}},
-         {"System", {tab_system->GetParent()}},
+         {"System", {tab_system->GetParent(), tab_network->GetParent()}},
          {"CPU", {}},
          {"Graphics", {}},
          {"Audio", {}},

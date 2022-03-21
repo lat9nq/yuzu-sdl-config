@@ -13,8 +13,7 @@ TabDebug::~TabDebug() {
 }
 
 void TabDebug::BuildUi() {
-    GtkBuilder* builder =
-        gtk_builder_new_from_string(debug_configuration, strlen(debug_configuration));
+    GtkBuilder* builder = gtk_builder_new_from_string(debug_glade, strlen(debug_glade));
     gtk_builder_connect_signals(builder, this);
 
     box_debug = GTK_BOX(gtk_builder_get_object(builder, "box_debug"));

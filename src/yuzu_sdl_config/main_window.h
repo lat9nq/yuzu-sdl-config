@@ -10,6 +10,7 @@ class TabGeneral;
 class TabDebug;
 class TabWebService;
 class TabSystem;
+class TabNetwork;
 
 class MainWindow {
 public:
@@ -38,6 +39,7 @@ public:
     std::unique_ptr<TabDebug> tab_debug;
     std::unique_ptr<TabWebService> tab_web_service;
     std::unique_ptr<TabSystem> tab_system;
+    std::unique_ptr<TabNetwork> tab_network;
     std::unique_ptr<BasicIni> ini;
 
 private:
