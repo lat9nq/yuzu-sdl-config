@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+#include <string>
 #include <gtk/gtk.h>
 #include "yuzu_sdl_config/tab/tab.h"
 
@@ -28,6 +30,8 @@ public:
     GtkButton* button_show_calendar;
     GtkCalendar* calendar_custom_rtc;
     GtkPopover* popover_calendar;
+    GtkEntry* entry_custom_rtc;
+    GtkEntryBuffer* entry_buffer_rng_seed;
 
 private:
     void BuildUi() override;
@@ -35,6 +39,7 @@ private:
     Settings::Values& settings;
 };
 
+extern "C" G_MODULE_EXPORT void on_entry_rng_seed_changed(GtkEditable* self, gpointer user_data);
 extern "C" G_MODULE_EXPORT void on_check_button_custom_rtc_toggled(GtkCheckButton* self,
                                                                    gpointer user_data);
 extern "C" G_MODULE_EXPORT void on_check_button_rng_seed_enable_toggled(GtkCheckButton* self,

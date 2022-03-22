@@ -7,6 +7,9 @@
     <property name="step-increment">1</property>
     <property name="page-increment">3600</property>
   </object>
+  <object class="GtkEntryBuffer" id="entry_buffer_rng_seed">
+    <property name="max-length">8</property>
+  </object>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -44,6 +47,10 @@
               <object class="GtkEntry" id="entry_rng_seed">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <property name="buffer">entry_buffer_rng_seed</property>
+                <property name="max-length">8</property>
+                <property name="input-purpose">number</property>
+                <signal name="changed" handler="on_entry_rng_seed_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -54,6 +61,26 @@
               <object class="GtkComboBoxText" id="combo_box_text_language_index">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <items>
+                  <item translatable="yes">Japanese</item>
+                  <item translatable="yes">English (US)</item>
+                  <item translatable="yes">French</item>
+                  <item translatable="yes">German</item>
+                  <item translatable="yes">Italian</item>
+                  <item translatable="yes">Spanish</item>
+                  <item translatable="yes">Chinese</item>
+                  <item translatable="yes">Korean</item>
+                  <item translatable="yes">Dutch (Nederlands)</item>
+                  <item translatable="yes">Portuguese</item>
+                  <item translatable="yes">Russian</item>
+                  <item translatable="yes">Taiwanese</item>
+                  <item translatable="yes">British English</item>
+                  <item translatable="yes">Candian French</item>
+                  <item translatable="yes">Latin America Spanish</item>
+                  <item translatable="yes">Simplified Chinese</item>
+                  <item translatable="yes">Traditional Chinese</item>
+                  <item translatable="yes">Brazilian Portuguese</item>
+                </items>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -64,6 +91,15 @@
               <object class="GtkComboBoxText" id="combo_box_text_region_index">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <items>
+                  <item translatable="yes">Japan</item>
+                  <item translatable="yes">USA</item>
+                  <item translatable="yes">Europe</item>
+                  <item translatable="yes">Australia</item>
+                  <item translatable="yes">China</item>
+                  <item translatable="yes">Korea</item>
+                  <item translatable="yes">Taiwan</item>
+                </items>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -71,9 +107,57 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="combo_box_time_text_zone_index">
+              <object class="GtkComboBoxText" id="combo_box_text_time_zone_index">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <items>
+                  <item translatable="yes">Auto</item>
+                  <item translatable="yes">Default</item>
+                  <item translatable="yes">CET</item>
+                  <item translatable="yes">CST6CDT</item>
+                  <item translatable="yes">Cuba</item>
+                  <item translatable="yes">EET</item>
+                  <item translatable="yes">Egypt</item>
+                  <item translatable="yes">Eire</item>
+                  <item translatable="yes">EST</item>
+                  <item translatable="yes">EST5EDT</item>
+                  <item translatable="yes">GB</item>
+                  <item translatable="yes">GB-Eire</item>
+                  <item translatable="yes">GMT</item>
+                  <item translatable="yes">GMT+0</item>
+                  <item translatable="yes">GMT-0</item>
+                  <item translatable="yes">GMT0</item>
+                  <item translatable="yes">Greenwich</item>
+                  <item translatable="yes">Hongkong</item>
+                  <item translatable="yes">HST</item>
+                  <item translatable="yes">Iceland</item>
+                  <item translatable="yes">Iran</item>
+                  <item translatable="yes">Israel</item>
+                  <item translatable="yes">Jamaica</item>
+                  <item translatable="yes">Japan</item>
+                  <item translatable="yes">Kwajalein</item>
+                  <item translatable="yes">Libya</item>
+                  <item translatable="yes">MET</item>
+                  <item translatable="yes">MST</item>
+                  <item translatable="yes">MST7MDT</item>
+                  <item translatable="yes">Navajo</item>
+                  <item translatable="yes">NZ</item>
+                  <item translatable="yes">NZ-CHAT</item>
+                  <item translatable="yes">Poland</item>
+                  <item translatable="yes">Portugal</item>
+                  <item translatable="yes">PRC</item>
+                  <item translatable="yes">PST8PDT</item>
+                  <item translatable="yes">ROC</item>
+                  <item translatable="yes">ROK</item>
+                  <item translatable="yes">Singapore</item>
+                  <item translatable="yes">Turkey</item>
+                  <item translatable="yes">UCT</item>
+                  <item translatable="yes">Universal</item>
+                  <item translatable="yes">UTC</item>
+                  <item translatable="yes">W-SU</item>
+                  <item translatable="yes">WET</item>
+                  <item translatable="yes">Zulu</item>
+                </items>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -84,6 +168,11 @@
               <object class="GtkComboBoxText" id="combo_box_text_sound_index">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <items>
+                  <item translatable="yes">Mono</item>
+                  <item translatable="yes">Stereo</item>
+                  <item translatable="yes">Surround</item>
+                </items>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -95,12 +184,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <child>
-                  <object class="GtkSpinButton" id="spin_button_custom_rtc">
-                    <property name="width-request">200</property>
+                  <object class="GtkEntry" id="entry_custom_rtc">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="hexpand">True</property>
-                    <property name="adjustment">adjustment1</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -110,12 +197,10 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_show_calendar">
-                    <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="tooltip-text" translatable="yes">Show calendar</property>
                     <property name="image">image1</property>
-                    <property name="relief">none</property>
                     <property name="always-show-image">True</property>
                     <signal name="clicked" handler="on_button_show_calendar_clicked" swapped="no"/>
                   </object>
@@ -236,11 +321,73 @@
     <property name="can-focus">False</property>
     <property name="relative-to">button_show_calendar</property>
     <child>
-      <object class="GtkCalendar" id="calendar_custom_rtc">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="year">1970</property>
-        <property name="day">1</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">4</property>
+        <child>
+          <object class="GtkCalendar" id="calendar_custom_rtc">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="year">1970</property>
+            <property name="day">1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="spacing">4</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkSpinButton">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>

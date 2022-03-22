@@ -97,6 +97,11 @@ void LoadConfig(const BasicIni& ini, Settings::Values& settings) {
         const u32 rng_seed = ini.Get("System", settings.rng_seed.GetLabel(), 0);
         settings.rng_seed = rng_seed;
     }
+    const bool custom_rtc_enabled = ini.Get("System", "custom_rtc_enabled", false);
+    if (custom_rtc_enabled) {
+        const s64 custom_rtc = ini.Get("System", "custom_rtc", 0L);
+        settings.custom_rtc = custom_rtc;
+    }
     LoadSetting(ini, "System", settings.current_user);
     LoadSetting(ini, "System", settings.language_index);
     LoadSetting(ini, "System", settings.region_index);
