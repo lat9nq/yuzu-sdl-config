@@ -9,6 +9,7 @@
 #include "yuzu_sdl_config/main_window.h"
 #include "yuzu_sdl_config/tab/debug.h"
 #include "yuzu_sdl_config/tab/debug_cpu.h"
+#include "yuzu_sdl_config/tab/filesystem.h"
 #include "yuzu_sdl_config/tab/general.h"
 #include "yuzu_sdl_config/tab/network.h"
 #include "yuzu_sdl_config/tab/system.h"
@@ -52,6 +53,7 @@ void MainWindow::BuildUi() {
     tab_general = std::make_unique<TabGeneral>(*settings);
     tab_debug = std::make_unique<TabDebug>(*settings);
     tab_debug_cpu = std::make_unique<TabDebugCpu>(*settings);
+    tab_filesystem = std::make_unique<TabFilesystem>(*settings);
     tab_web_service = std::make_unique<TabWebService>(*settings);
     tab_system = std::make_unique<TabSystem>(*settings);
     tab_network = std::make_unique<TabNetwork>(*settings);
@@ -74,6 +76,7 @@ void MainWindow::UpdateUi() {
     tab_general->UpdateUi();
     tab_debug->UpdateUi();
     tab_debug_cpu->UpdateUi();
+    tab_filesystem->UpdateUi();
     tab_web_service->UpdateUi();
     tab_system->UpdateUi();
     tab_network->UpdateUi();
@@ -84,6 +87,7 @@ void MainWindow::ApplyUiConfiguration() {
     tab_debug->ApplyUiConfiguration();
     tab_debug_cpu->ApplyUiConfiguration();
     tab_web_service->ApplyUiConfiguration();
+    tab_filesystem->ApplyUiConfiguration();
     tab_system->ApplyUiConfiguration();
     tab_network->ApplyUiConfiguration();
 }
@@ -93,7 +97,8 @@ void MainWindow::PopulateCategories() {
         {{"General",
           {tab_general->GetParent(), tab_web_service->GetParent(), tab_debug->GetParent(),
            tab_debug_cpu->GetParent()}},
-         {"System", {tab_system->GetParent(), tab_network->GetParent()}},
+         {"System",
+          {tab_system->GetParent(), tab_network->GetParent(), tab_filesystem->GetParent()}},
          {"CPU", {}},
          {"Graphics", {}},
          {"Audio", {}},

@@ -11,6 +11,9 @@ add_executable(yuzu-sdl-config
     tab/debug_cpu.cpp
     tab/debug_cpu.glade
     tab/debug_cpu.h
+    tab/filesystem.cpp
+    tab/filesystem.glade
+    tab/filesystem.h
     tab/general.cpp
     tab/general.glade
     tab/general.h
@@ -30,6 +33,7 @@ set(GLADE_FILES
     main_window.glade
     tab/debug.glade
     tab/debug_cpu.glade
+    tab/filesystem.glade
     tab/general.glade
     tab/network.glade
     tab/system.glade
