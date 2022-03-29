@@ -23,6 +23,9 @@ add_executable(yuzu-sdl-config
     tab/graphics.cpp
     tab/graphics.glade
     tab/graphics.h
+    tab/graphics_advanced.cpp
+    tab/graphics_advanced.glade
+    tab/graphics_advanced.h
     tab/network.cpp
     tab/network.glade
     tab/network.h
@@ -43,6 +46,7 @@ set(GLADE_FILES
     tab/filesystem.glade
     tab/general.glade
     tab/graphics.glade
+    tab/graphics_advanced.glade
     tab/network.glade
     tab/system.glade
     tab/web_service.glade
