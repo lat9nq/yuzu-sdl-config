@@ -24,6 +24,7 @@ public:
     ~MainWindow();
     void UpdateUi();
     void ReadIni();
+    void WriteIni(const std::filesystem::path& path);
 
     const std::vector<GtkWidget*>& GetTabList(std::size_t index) const;
 
@@ -61,14 +62,20 @@ private:
     std::vector<std::vector<GtkWidget*>> tab_list;
 };
 
-extern "C" G_MODULE_EXPORT void on_button_about_close_clicked(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_tool_button_about_clicked(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_tool_button_open_clicked(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_tool_button_reset_clicked(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_tool_button_revert_clicked(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_tool_button_save_as_clicked(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_tool_button_save_clicked(GtkWidget* self, gpointer user_data);
-extern "C" G_MODULE_EXPORT void on_window_main_destroy(GtkWidget* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_button_about_close_clicked(GtkButton* self, gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_about_clicked(GtkToolButton* self,
+                                                             gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_open_clicked(GtkToolButton* self,
+                                                            gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_reset_clicked(GtkToolButton* self,
+                                                             gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_revert_clicked(GtkToolButton* self,
+                                                              gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_save_as_clicked(GtkToolButton* self,
+                                                               gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_tool_button_save_clicked(GtkToolButton* self,
+                                                            gpointer user_data);
+extern "C" G_MODULE_EXPORT void on_window_main_destroy(GtkWindow* self, gpointer user_data);
 extern "C" G_MODULE_EXPORT void on_list_box_view_select_row_selected(GtkWidget* self,
                                                                      GtkListBoxRow* row,
                                                                      gpointer user_data);

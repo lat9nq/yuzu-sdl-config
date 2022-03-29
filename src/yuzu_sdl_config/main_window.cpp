@@ -75,6 +75,17 @@ void MainWindow::ReadIni() {
     }
 }
 
+void MainWindow::WriteIni(const std::filesystem::path& path) {
+    const std::filesystem::path old_path = ini->GetPath();
+    ApplyUiConfiguration();
+    ApplySettings(*ini, *settings);
+
+    ini->SetPath(path);
+    BasicIni::WriteFile(*ini);
+
+    ini->SetPath(old_path);
+}
+
 void MainWindow::UpdateUi() {
     gtk_window_set_title(window_main, ini->GetPath().string().c_str());
     LoadConfig(*ini, *settings);
@@ -135,23 +146,23 @@ const std::vector<GtkWidget*>& MainWindow::GetTabList(std::size_t index) const {
     return tab_list[index];
 }
 
-void on_button_about_close_clicked(GtkWidget* self, gpointer user_data) {
+void on_button_about_close_clicked(GtkButton* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
-    assert(self == GTK_WIDGET(window->button_about_close));
+    assert(self == window->button_about_close);
 
     gtk_widget_hide(GTK_WIDGET(window->about_dialog_main));
 }
 
-void on_tool_button_about_clicked(GtkWidget* self, gpointer user_data) {
+void on_tool_button_about_clicked(GtkToolButton* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
-    assert(self == GTK_WIDGET(window->tool_button_about));
+    assert(self == window->tool_button_about);
 
     gtk_widget_show(GTK_WIDGET(window->about_dialog_main));
 }
 
-void on_tool_button_open_clicked(GtkWidget* self, gpointer user_data) {
+void on_tool_button_open_clicked(GtkToolButton* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
-    assert(self == GTK_WIDGET(window->tool_button_open));
+    assert(self == window->tool_button_open);
 
     // ini_filter does not need to be manually unref'd since native takes ownership of it
     GtkFileFilter* ini_filter = gtk_file_filter_new();
@@ -175,28 +186,33 @@ void on_tool_button_open_clicked(GtkWidget* self, gpointer user_data) {
     g_object_unref(native);
 }
 
-void on_tool_button_reset_clicked(GtkWidget* self, gpointer user_data) {
+void on_tool_button_reset_clicked(GtkToolButton* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
-    assert(self == GTK_WIDGET(window->tool_button_reset));
+    assert(self == window->tool_button_reset);
 
     window->ini->Clear();
     window->UpdateUi();
 }
 
-void on_tool_button_revert_clicked(GtkWidget* self, gpointer user_data) {
+void on_tool_button_revert_clicked(GtkToolButton* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
-    assert(self == GTK_WIDGET(window->tool_button_revert));
+    assert(self == window->tool_button_revert);
 
     window->ReadIni();
     window->UpdateUi();
 }
 
-void on_tool_button_save_as_clicked(GtkWidget* self, gpointer user_data) {}
-void on_tool_button_save_clicked(GtkWidget* self, gpointer user_data) {}
-
-void on_window_main_destroy(GtkWidget* self, gpointer user_data) {
+void on_tool_button_save_as_clicked(GtkToolButton* self, gpointer user_data) {}
+void on_tool_button_save_clicked(GtkToolButton* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
-    assert(self == GTK_WIDGET(window->window_main));
+    assert(self == window->tool_button_save);
+
+    window->WriteIni(window->ini->GetPath());
+}
+
+void on_window_main_destroy(GtkWindow* self, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(self == window->window_main);
 
     gtk_main_quit();
 }
