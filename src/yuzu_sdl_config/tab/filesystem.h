@@ -10,7 +10,7 @@ struct Values;
 namespace YuzuSdlConfig {
 class TabFilesystem : public Tab {
 public:
-    TabFilesystem(Settings::Values& settings_);
+    explicit TabFilesystem(Settings::Values& settings_);
     ~TabFilesystem();
 
     GtkBox* box_filesystem;

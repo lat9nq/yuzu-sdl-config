@@ -7,6 +7,7 @@
 #include "yuzu_sdl_config/config.h"
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
+#include "yuzu_sdl_config/tab/cpu.h"
 #include "yuzu_sdl_config/tab/debug.h"
 #include "yuzu_sdl_config/tab/debug_cpu.h"
 #include "yuzu_sdl_config/tab/filesystem.h"
@@ -50,13 +51,14 @@ void MainWindow::BuildUi() {
     g_object_ref(about_dialog_main);
     g_object_unref(builder);
 
-    tab_general = std::make_unique<TabGeneral>(*settings);
+    tab_cpu = std::make_unique<TabCpu>(*settings);
     tab_debug = std::make_unique<TabDebug>(*settings);
     tab_debug_cpu = std::make_unique<TabDebugCpu>(*settings);
     tab_filesystem = std::make_unique<TabFilesystem>(*settings);
-    tab_web_service = std::make_unique<TabWebService>(*settings);
-    tab_system = std::make_unique<TabSystem>(*settings);
+    tab_general = std::make_unique<TabGeneral>(*settings);
     tab_network = std::make_unique<TabNetwork>(*settings);
+    tab_system = std::make_unique<TabSystem>(*settings);
+    tab_web_service = std::make_unique<TabWebService>(*settings);
 
     PopulateCategories();
 }
@@ -73,23 +75,25 @@ void MainWindow::UpdateUi() {
     gtk_window_set_title(window_main, ini->GetPath().string().c_str());
     LoadConfig(*ini, *settings);
 
-    tab_general->UpdateUi();
+    tab_cpu->UpdateUi();
     tab_debug->UpdateUi();
     tab_debug_cpu->UpdateUi();
     tab_filesystem->UpdateUi();
-    tab_web_service->UpdateUi();
-    tab_system->UpdateUi();
+    tab_general->UpdateUi();
     tab_network->UpdateUi();
+    tab_system->UpdateUi();
+    tab_web_service->UpdateUi();
 }
 
 void MainWindow::ApplyUiConfiguration() {
-    tab_general->ApplyUiConfiguration();
+    tab_cpu->ApplyUiConfiguration();
     tab_debug->ApplyUiConfiguration();
     tab_debug_cpu->ApplyUiConfiguration();
-    tab_web_service->ApplyUiConfiguration();
     tab_filesystem->ApplyUiConfiguration();
-    tab_system->ApplyUiConfiguration();
+    tab_general->ApplyUiConfiguration();
     tab_network->ApplyUiConfiguration();
+    tab_system->ApplyUiConfiguration();
+    tab_web_service->ApplyUiConfiguration();
 }
 
 void MainWindow::PopulateCategories() {
@@ -99,7 +103,7 @@ void MainWindow::PopulateCategories() {
            tab_debug_cpu->GetParent()}},
          {"System",
           {tab_system->GetParent(), tab_network->GetParent(), tab_filesystem->GetParent()}},
-         {"CPU", {}},
+         {"CPU", {tab_cpu->GetParent()}},
          {"Graphics", {}},
          {"Audio", {}},
          {"Controls", {}}},

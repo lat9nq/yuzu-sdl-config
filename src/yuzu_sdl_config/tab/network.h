@@ -11,7 +11,7 @@ struct Values;
 namespace YuzuSdlConfig {
 class TabNetwork : public Tab {
 public:
-    TabNetwork(Settings::Values& settings_);
+    explicit TabNetwork(Settings::Values& settings_);
     ~TabNetwork();
 
     GtkBox* box_network;

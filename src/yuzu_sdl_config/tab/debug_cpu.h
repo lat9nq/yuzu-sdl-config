@@ -10,7 +10,7 @@ struct Values;
 namespace YuzuSdlConfig {
 class TabDebugCpu : public Tab {
 public:
-    TabDebugCpu(Settings::Values& settings_);
+    explicit TabDebugCpu(Settings::Values& settings_);
     ~TabDebugCpu();
 
     void UpdateUi() override;

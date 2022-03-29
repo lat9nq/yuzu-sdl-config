@@ -6,13 +6,14 @@
 #include <gtk/gtk.h>
 
 namespace YuzuSdlConfig {
-class TabGeneral;
+class TabCpu;
 class TabDebug;
 class TabDebugCpu;
 class TabFilesystem;
-class TabWebService;
-class TabSystem;
+class TabGeneral;
 class TabNetwork;
+class TabSystem;
+class TabWebService;
 
 class MainWindow {
 public:
@@ -37,13 +38,14 @@ public:
     GtkAboutDialog* about_dialog_main;
     GtkButton* button_about_close;
 
-    std::unique_ptr<TabGeneral> tab_general;
+    std::unique_ptr<TabCpu> tab_cpu;
     std::unique_ptr<TabDebug> tab_debug;
     std::unique_ptr<TabDebugCpu> tab_debug_cpu;
     std::unique_ptr<TabFilesystem> tab_filesystem;
-    std::unique_ptr<TabWebService> tab_web_service;
-    std::unique_ptr<TabSystem> tab_system;
+    std::unique_ptr<TabGeneral> tab_general;
     std::unique_ptr<TabNetwork> tab_network;
+    std::unique_ptr<TabSystem> tab_system;
+    std::unique_ptr<TabWebService> tab_web_service;
     std::unique_ptr<BasicIni> ini;
 
 private:
