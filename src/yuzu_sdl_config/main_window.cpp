@@ -175,7 +175,7 @@ void on_tool_button_open_clicked(GtkToolButton* self, gpointer user_data) {
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(native), ini_filter);
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(native), window->ini->GetPath().c_str());
 
-    int result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    const int result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
     if (result == GTK_RESPONSE_ACCEPT) {
         char* filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
 
@@ -204,7 +204,30 @@ void on_tool_button_revert_clicked(GtkToolButton* self, gpointer user_data) {
     window->UpdateUi();
 }
 
-void on_tool_button_save_as_clicked(GtkToolButton* self, gpointer user_data) {}
+void on_tool_button_save_as_clicked(GtkToolButton* self, gpointer user_data) {
+    MainWindow* window = static_cast<MainWindow*>(user_data);
+    assert(self == window->tool_button_save_as);
+
+    // ini_filter does not need to be manually unref'd since native takes ownership of it
+    GtkFileFilter* ini_filter = gtk_file_filter_new();
+    gtk_file_filter_add_mime_type(ini_filter, "text/ini");
+    gtk_file_filter_add_pattern(ini_filter, "*.ini");
+
+    GtkFileChooserNative* native = gtk_file_chooser_native_new(
+        "Save As", window->window_main, GTK_FILE_CHOOSER_ACTION_SAVE, "_Save", "_Cancel");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(native), ini_filter);
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(native), window->ini->GetPath().c_str());
+    gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(native), true);
+
+    const int result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    if (result == GTK_RESPONSE_ACCEPT) {
+        char* filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
+        window->WriteIni(filename);
+        g_free(filename);
+    }
+    g_object_unref(native);
+}
+
 void on_tool_button_save_clicked(GtkToolButton* self, gpointer user_data) {
     MainWindow* window = static_cast<MainWindow*>(user_data);
     assert(self == window->tool_button_save);
