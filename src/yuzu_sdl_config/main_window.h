@@ -6,7 +6,9 @@
 #include <gtk/gtk.h>
 
 namespace YuzuSdlConfig {
+class Tab;
 class TabAudio;
+class TabControlsPlayer;
 class TabCpu;
 class TabDebug;
 class TabDebugCpu;
@@ -55,10 +57,14 @@ public:
     std::unique_ptr<TabWebService> tab_web_service;
     std::unique_ptr<BasicIni> ini;
 
+    std::vector<std::unique_ptr<Tab>> input_tabs;
+    std::vector<GtkWidget*> input_widgets;
+
 private:
     void BuildUi();
     void ApplyUiConfiguration();
     void PopulateCategories();
+    void PopulateInputTabs();
 
     std::unique_ptr<Settings::Values> settings;
     std::vector<std::vector<GtkWidget*>> tab_list;

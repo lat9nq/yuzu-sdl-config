@@ -8,6 +8,7 @@
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
 #include "yuzu_sdl_config/tab/audio.h"
+#include "yuzu_sdl_config/tab/controls_player.h"
 #include "yuzu_sdl_config/tab/cpu.h"
 #include "yuzu_sdl_config/tab/debug.h"
 #include "yuzu_sdl_config/tab/debug_cpu.h"
@@ -116,18 +117,27 @@ void MainWindow::ApplyUiConfiguration() {
     tab_web_service->ApplyUiConfiguration();
 }
 
+void MainWindow::PopulateInputTabs() {
+    for (int i = 0; i < 8; i++) {
+        input_tabs.push_back(std::make_unique<TabControlsPlayer>(*settings, i));
+        input_widgets.push_back(input_tabs[i]->GetParent());
+    }
+}
+
 void MainWindow::PopulateCategories() {
-    const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{
-        {{"General",
-          {tab_general->GetParent(), tab_web_service->GetParent(), tab_debug->GetParent(),
-           tab_debug_cpu->GetParent()}},
-         {"System",
-          {tab_system->GetParent(), tab_network->GetParent(), tab_filesystem->GetParent()}},
-         {"CPU", {tab_cpu->GetParent()}},
-         {"Graphics", {tab_graphics->GetParent(), tab_graphics_advanced->GetParent()}},
-         {"Audio", {tab_audio->GetParent()}},
-         {"Controls", {}}},
-    };
+    PopulateInputTabs();
+
+    const std::array<std::pair<const char*, std::vector<GtkWidget*>>, 6> categories{{
+        {"General",
+         {tab_general->GetParent(), tab_web_service->GetParent(), tab_debug->GetParent(),
+          tab_debug_cpu->GetParent()}},
+        {"System",
+         {tab_system->GetParent(), tab_network->GetParent(), tab_filesystem->GetParent()}},
+        {"CPU", {tab_cpu->GetParent()}},
+        {"Graphics", {tab_graphics->GetParent(), tab_graphics_advanced->GetParent()}},
+        {"Audio", {tab_audio->GetParent()}},
+        {"Controls", input_widgets},
+    }};
 
     tab_list.clear();
     for (const auto& category : categories) {
@@ -173,7 +183,8 @@ void on_tool_button_open_clicked(GtkToolButton* self, gpointer user_data) {
     GtkFileChooserNative* native = gtk_file_chooser_native_new(
         "Open", window->window_main, GTK_FILE_CHOOSER_ACTION_OPEN, "_Open", "_Cancel");
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(native), ini_filter);
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(native), window->ini->GetPath().c_str());
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(native),
+                                  window->ini->GetPath().string().c_str());
 
     const int result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
     if (result == GTK_RESPONSE_ACCEPT) {
@@ -216,7 +227,8 @@ void on_tool_button_save_as_clicked(GtkToolButton* self, gpointer user_data) {
     GtkFileChooserNative* native = gtk_file_chooser_native_new(
         "Save As", window->window_main, GTK_FILE_CHOOSER_ACTION_SAVE, "_Save", "_Cancel");
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(native), ini_filter);
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(native), window->ini->GetPath().c_str());
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(native),
+                                  window->ini->GetPath().string().c_str());
     gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(native), true);
 
     const int result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
