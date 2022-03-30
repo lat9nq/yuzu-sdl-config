@@ -7,6 +7,7 @@
 #include "yuzu_sdl_config/config.h"
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
+#include "yuzu_sdl_config/tab/audio.h"
 #include "yuzu_sdl_config/tab/cpu.h"
 #include "yuzu_sdl_config/tab/debug.h"
 #include "yuzu_sdl_config/tab/debug_cpu.h"
@@ -53,6 +54,7 @@ void MainWindow::BuildUi() {
     g_object_ref(about_dialog_main);
     g_object_unref(builder);
 
+    tab_audio = std::make_unique<TabAudio>(*settings);
     tab_cpu = std::make_unique<TabCpu>(*settings);
     tab_debug = std::make_unique<TabDebug>(*settings);
     tab_debug_cpu = std::make_unique<TabDebugCpu>(*settings);
@@ -90,6 +92,7 @@ void MainWindow::UpdateUi() {
     gtk_window_set_title(window_main, ini->GetPath().string().c_str());
     LoadConfig(*ini, *settings);
 
+    tab_audio->UpdateUi();
     tab_cpu->UpdateUi();
     tab_debug->UpdateUi();
     tab_debug_cpu->UpdateUi();
@@ -103,6 +106,7 @@ void MainWindow::UpdateUi() {
 }
 
 void MainWindow::ApplyUiConfiguration() {
+    tab_audio->ApplyUiConfiguration();
     tab_cpu->ApplyUiConfiguration();
     tab_debug->ApplyUiConfiguration();
     tab_debug_cpu->ApplyUiConfiguration();
@@ -124,7 +128,7 @@ void MainWindow::PopulateCategories() {
           {tab_system->GetParent(), tab_network->GetParent(), tab_filesystem->GetParent()}},
          {"CPU", {tab_cpu->GetParent()}},
          {"Graphics", {tab_graphics->GetParent(), tab_graphics_advanced->GetParent()}},
-         {"Audio", {}},
+         {"Audio", {tab_audio->GetParent()}},
          {"Controls", {}}},
     };
 

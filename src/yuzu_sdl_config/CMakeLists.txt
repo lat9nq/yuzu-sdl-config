@@ -5,6 +5,9 @@ add_executable(yuzu-sdl-config
     main_window.cpp
     main_window.glade
     main_window.h
+    tab/audio.cpp
+    tab/audio.glade
+    tab/audio.h
     tab/cpu.cpp
     tab/cpu.glade
     tab/cpu.h
@@ -40,6 +43,7 @@ add_executable(yuzu-sdl-config
 
 set(GLADE_FILES
     main_window.glade
+    tab/audio.glade
     tab/cpu.glade
     tab/debug.glade
     tab/debug_cpu.glade

@@ -6,6 +6,7 @@
 #include <gtk/gtk.h>
 
 namespace YuzuSdlConfig {
+class TabAudio;
 class TabCpu;
 class TabDebug;
 class TabDebugCpu;
@@ -41,6 +42,7 @@ public:
     GtkAboutDialog* about_dialog_main;
     GtkButton* button_about_close;
 
+    std::unique_ptr<TabAudio> tab_audio;
     std::unique_ptr<TabCpu> tab_cpu;
     std::unique_ptr<TabDebug> tab_debug;
     std::unique_ptr<TabDebugCpu> tab_debug_cpu;
