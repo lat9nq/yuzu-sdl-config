@@ -1,3 +1,5 @@
+#include <cstdio>
+#include <SDL2/SDL.h>
 #include <common/settings.h>
 #include <gtk/gtk.h>
 #include "yuzu_sdl_config/tab/audio.glade.h"
@@ -58,6 +60,23 @@ void TabAudio::ApplyUiConfiguration() {
 void TabAudio::PopulateAudioDeviceList() {
     std::vector<std::string> audio_devices;
     audio_devices.push_back("auto");
+
+    bool audio_initialized{false};
+    // Get audio device names from SDL2
+    if (SDL_WasInit(SDL_INIT_AUDIO) != SDL_INIT_AUDIO) {
+        if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
+            std::fprintf(stderr, "error initializing audio: %s\n", SDL_GetError());
+        } else {
+            audio_initialized = true;
+        }
+    }
+    if (audio_initialized) {
+        const int audio_device_count = SDL_GetNumAudioDevices(0);
+        for (int i = 0; i < audio_device_count; i++) {
+            audio_devices.push_back(SDL_GetAudioDeviceName(i, 0));
+        }
+        SDL_QuitSubSystem(SDL_INIT_AUDIO);
+    }
 
     for (auto device : audio_devices) {
         GtkWidget* menu_item = gtk_menu_item_new_with_label(device.c_str());
