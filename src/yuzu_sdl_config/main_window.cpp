@@ -78,14 +78,11 @@ void MainWindow::ReadIni() {
 }
 
 void MainWindow::WriteIni(const std::filesystem::path& path) {
-    const std::filesystem::path old_path = ini->GetPath();
     ApplyUiConfiguration();
     ApplySettings(*ini, *settings);
 
     ini->SetPath(path);
     BasicIni::WriteFile(*ini);
-
-    ini->SetPath(old_path);
 }
 
 void MainWindow::UpdateUi() {
@@ -176,6 +173,7 @@ void on_tool_button_open_clicked(GtkToolButton* self, gpointer user_data) {
     GtkFileChooserNative* native = gtk_file_chooser_native_new(
         "Open", window->window_main, GTK_FILE_CHOOSER_ACTION_OPEN, "_Open", "_Cancel");
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(native), ini_filter);
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(native), window->ini->GetPath().c_str());
 
     int result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
     if (result == GTK_RESPONSE_ACCEPT) {
