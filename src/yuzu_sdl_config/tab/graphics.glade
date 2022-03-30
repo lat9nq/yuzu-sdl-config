@@ -70,6 +70,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_renderer_backend">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Which backend API to use.\nSets backend</property>
                 <items>
                   <item translatable="yes">OpenGL</item>
                   <item translatable="yes">Vulkan</item>
@@ -85,6 +86,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_shader_backend">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Selects the OpenGL shader backend. NV_gpu_program5 is required for GLASM. If NV_gpu_program5 is not available and GLASM is selected, GLSL will be used.\nSets shader_backend</property>
                 <items>
                   <item translatable="yes">GLSL</item>
                   <item translatable="yes">GLASM (Assembly Shaders, NVIDIA Only)</item>
@@ -105,6 +107,7 @@
                   <object class="GtkEntry" id="entry_vulkan_device">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="tooltip-text" translatable="yes">Which Vulkan physical device to use.\nSets vulkan_device</property>
                     <property name="max-length">2</property>
                     <property name="width-chars">2</property>
                   </object>
@@ -117,6 +120,7 @@
                 <child>
                   <object class="GtkComboBoxText" id="combo_box_text_vulkan_device">
                     <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Select a detected Vulkan physical device.</property>
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
@@ -179,6 +183,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Whether to use disk based shader cache.\nSets use_disk_shader_cache</property>
                 <property name="draw-indicator">True</property>
               </object>
               <packing>
@@ -192,6 +197,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Whether to use asynchronous GPU emulation.\nSets use_asynchronous_gpu_emulation</property>
                 <property name="draw-indicator">True</property>
               </object>
               <packing>
@@ -205,6 +211,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Accelerate ASTC texture decoding.\nSets accelerate_astc</property>
                 <property name="draw-indicator">True</property>
               </object>
               <packing>
@@ -301,6 +308,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
+                <property name="tooltip-text" translatable="yes">Set the clear color for the renderer: what shows up on the sides the screen.\nSets bg_red, bg_green, and bg_blue</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -311,6 +319,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_anti_aliasing">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Sets anti_aliasing</property>
                 <items>
                   <item translatable="yes">None</item>
                   <item translatable="yes">FXAA</item>
@@ -325,6 +334,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_scaling_filter">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Pixel filter to use when up- or down-sampling rendered frames.\nSets scaling_filter</property>
                 <items>
                   <item translatable="yes">Nearest Neighbor</item>
                   <item translatable="yes">Bilinear</item>
@@ -343,6 +353,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_resolution_setup">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Sets resolution_setup</property>
                 <items>
                   <item translatable="yes">0.5X (360p/540p) [EXPERIMENTAL]</item>
                   <item translatable="yes">0.75X (540p/810p) [EXPERIMENTAL]</item>
@@ -363,6 +374,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_aspect_ratio">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Sets aspect_ratio</property>
                 <items>
                   <item translatable="yes">Default (16:9)</item>
                   <item translatable="yes">Force 4:3</item>
@@ -379,6 +391,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_fullscreen_mode">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Whether to use fullscreen or borderless window mode.\nSets fullscreen_mode</property>
                 <items>
                   <item translatable="yes">Borderless Windowed</item>
                   <item translatable="yes">Exclusive Fullscreen</item>
@@ -393,6 +406,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_nvdec_emulation">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Set how to decode and display videos that yuzu encounters during emulation.\nSets nvdec_emulation</property>
                 <items>
                   <item translatable="yes">No Video Output</item>
                   <item translatable="yes">CPU Video Decoding</item>

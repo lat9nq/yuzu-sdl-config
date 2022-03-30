@@ -167,6 +167,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Whether or not to enable gamecard emulation.\nSets gamecard_inserted</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="on_check_button_gamecard_inserted_toggled" swapped="no"/>
               </object>
@@ -182,6 +183,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Whether or not the gamecard should be emulated as the current game. If 'gamecard_inserted' is disabled this setting is irrelevant.\nSets gamecard_current_game</property>
                 <property name="draw-indicator">True</property>
               </object>
               <packing>
@@ -217,6 +219,7 @@
                       <object class="GtkEntry" id="entry_gamecard_path">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
+                        <property name="tooltip-text" translatable="yes">Path to an XCI file to use as the gamecard. This requires 'gamecard_inserted' to be enabled and 'gamecard_current_game' to be disabled to be useful.\nSets gamecard_path</property>
                         <property name="hexpand">True</property>
                       </object>
                       <packing>
@@ -230,6 +233,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
+                        <property name="tooltip-text" translatable="yes">Open a dialog to set the gamecard path.</property>
                         <property name="image">image1</property>
                         <signal name="clicked" handler="on_button_gamecard_path_clicked" swapped="no"/>
                       </object>
@@ -386,6 +390,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">False</property>
+                    <property name="tooltip-text" translatable="yes">Dump all NSOs yuzu attempts to load.\nSets dump_nso</property>
                     <property name="draw-indicator">True</property>
                   </object>
                   <packing>
@@ -400,6 +405,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">False</property>
+                    <property name="tooltip-text" translatable="yes">Dump the ExeFS of all games yuzu attempts to load.\nSets dump_exefs</property>
                     <property name="draw-indicator">True</property>
                   </object>
                   <packing>

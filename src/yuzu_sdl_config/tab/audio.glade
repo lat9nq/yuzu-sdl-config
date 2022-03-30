@@ -79,6 +79,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_sink_id">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Which audio output engine to use. 'null' disables audio output.\nSets output_engine</property>
                 <items>
                   <item translatable="yes">auto</item>
                   <item translatable="yes">cubeb</item>
@@ -95,6 +96,7 @@
               <object class="GtkScale" id="scale_volume">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Output volume of the game.\nSets volume</property>
                 <property name="adjustment">adjustment_volume</property>
                 <property name="round-digits">1</property>
                 <property name="digits">0</property>
@@ -113,6 +115,7 @@
                   <object class="GtkEntry" id="entry_audio_device_id">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="tooltip-text" translatable="yes">Which audio device to use.\nSets output_device</property>
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
@@ -127,6 +130,7 @@
                     <property name="can-focus">True</property>
                     <property name="focus-on-click">False</property>
                     <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Select a detected audio device.</property>
                     <property name="popup">menu_audio_device_id</property>
                     <property name="use-popover">False</property>
                     <child>

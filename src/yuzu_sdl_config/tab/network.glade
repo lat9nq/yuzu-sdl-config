@@ -54,6 +54,7 @@
                   <object class="GtkEntry" id="entry_network_interface">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="tooltip-text" translatable="yes">Name of the network interface device to use with yuzu LAN play.\nSets network_interface</property>
                     <property name="hexpand">True</property>
                   </object>
                   <packing>
@@ -68,6 +69,7 @@
                     <property name="can-focus">True</property>
                     <property name="focus-on-click">False</property>
                     <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Select a network device available on the system.</property>
                     <property name="popup">menu_network_interface</property>
                     <property name="use-popover">False</property>
                     <child>

@@ -61,6 +61,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Sets use_vsync</property>
                 <property name="draw-indicator">True</property>
               </object>
               <packing>
@@ -74,6 +75,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Whether to allow asynchronous shader building.\nSet use_asynchronous_shaders</property>
                 <property name="draw-indicator">True</property>
               </object>
               <packing>
@@ -87,6 +89,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Inform the guest that GPU operations completed more quickly than they did.\nSet use_fast_gpu_time</property>
                 <property name="draw-indicator">True</property>
               </object>
               <packing>
@@ -98,6 +101,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_gpu_accuracy">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Sets gpu_accuracy</property>
                 <items>
                   <item translatable="yes">Normal</item>
                   <item translatable="yes">High</item>
@@ -113,6 +117,7 @@
               <object class="GtkComboBoxText" id="combo_box_text_max_anisotropy">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="tooltip-text" translatable="yes">Sets max_anisotropy</property>
                 <items>
                   <item translatable="yes">Automatic</item>
                   <item translatable="yes">Default</item>
