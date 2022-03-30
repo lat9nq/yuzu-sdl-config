@@ -40,26 +40,27 @@ void LoadConfig(const BasicIni& ini, Settings::Values& settings) {
     LoadSetting(ini, "Core", settings.use_multi_core);
 
     // CPU
-    LoadEnumSetting(ini, "CPU", settings.cpu_accuracy);
-    LoadSetting(ini, "CPU", settings.cpu_debug_mode);
+    LoadEnumSetting(ini, "Cpu", settings.cpu_accuracy);
+    LoadSetting(ini, "Cpu", settings.cpu_debug_mode);
 
-    LoadSetting(ini, "CPU", settings.cpuopt_page_tables);
-    LoadSetting(ini, "CPU", settings.cpuopt_block_linking);
-    LoadSetting(ini, "CPU", settings.cpuopt_return_stack_buffer);
-    LoadSetting(ini, "CPU", settings.cpuopt_fast_dispatcher);
-    LoadSetting(ini, "CPU", settings.cpuopt_context_elimination);
-    LoadSetting(ini, "CPU", settings.cpuopt_misc_ir);
-    LoadSetting(ini, "CPU", settings.cpuopt_reduce_misalign_checks);
-    LoadSetting(ini, "CPU", settings.cpuopt_fastmem);
-    LoadSetting(ini, "CPU", settings.cpuopt_fastmem_exclusives);
-    LoadSetting(ini, "CPU", settings.cpuopt_recompile_exclusives);
+    LoadSetting(ini, "Cpu", settings.cpuopt_page_tables);
+    LoadSetting(ini, "Cpu", settings.cpuopt_block_linking);
+    LoadSetting(ini, "Cpu", settings.cpuopt_return_stack_buffer);
+    LoadSetting(ini, "Cpu", settings.cpuopt_fast_dispatcher);
+    LoadSetting(ini, "Cpu", settings.cpuopt_context_elimination);
+    LoadSetting(ini, "Cpu", settings.cpuopt_const_prop);
+    LoadSetting(ini, "Cpu", settings.cpuopt_misc_ir);
+    LoadSetting(ini, "Cpu", settings.cpuopt_reduce_misalign_checks);
+    LoadSetting(ini, "Cpu", settings.cpuopt_fastmem);
+    LoadSetting(ini, "Cpu", settings.cpuopt_fastmem_exclusives);
+    LoadSetting(ini, "Cpu", settings.cpuopt_recompile_exclusives);
 
-    LoadSetting(ini, "CPU", settings.cpuopt_unsafe_unfuse_fma);
-    LoadSetting(ini, "CPU", settings.cpuopt_unsafe_reduce_fp_error);
-    LoadSetting(ini, "CPU", settings.cpuopt_unsafe_ignore_standard_fpcr);
-    LoadSetting(ini, "CPU", settings.cpuopt_unsafe_inaccurate_nan);
-    LoadSetting(ini, "CPU", settings.cpuopt_unsafe_fastmem_check);
-    LoadSetting(ini, "CPU", settings.cpuopt_unsafe_ignore_global_monitor);
+    LoadSetting(ini, "Cpu", settings.cpuopt_unsafe_unfuse_fma);
+    LoadSetting(ini, "Cpu", settings.cpuopt_unsafe_reduce_fp_error);
+    LoadSetting(ini, "Cpu", settings.cpuopt_unsafe_ignore_standard_fpcr);
+    LoadSetting(ini, "Cpu", settings.cpuopt_unsafe_inaccurate_nan);
+    LoadSetting(ini, "Cpu", settings.cpuopt_unsafe_fastmem_check);
+    LoadSetting(ini, "Cpu", settings.cpuopt_unsafe_ignore_global_monitor);
 
     // Renderer
     LoadEnumSetting(ini, "Renderer", settings.renderer_backend);
@@ -75,6 +76,7 @@ void LoadConfig(const BasicIni& ini, Settings::Values& settings) {
     LoadSetting(ini, "Renderer", settings.use_disk_shader_cache);
     LoadEnumSetting(ini, "Renderer", settings.gpu_accuracy);
     LoadSetting(ini, "Renderer", settings.use_asynchronous_gpu_emulation);
+    LoadEnumSetting(ini, "Renderer", settings.nvdec_emulation);
     LoadSetting(ini, "Renderer", settings.accelerate_astc);
     LoadSetting(ini, "Renderer", settings.use_vsync);
     LoadSetting(ini, "Renderer", settings.fps_cap);
@@ -109,7 +111,7 @@ void LoadConfig(const BasicIni& ini, Settings::Values& settings) {
     LoadSetting(ini, "System", settings.sound_index);
 
     // Controls
-    LoadSetting(ini, "ControlsGeneral", settings.use_docked_mode);
+    LoadSetting(ini, "System", settings.use_docked_mode);
     LoadSetting(ini, "ControlsGeneral", settings.enable_raw_input);
     LoadSetting(ini, "ControlsGeneral", settings.controller_navigation);
     LoadSetting(ini, "ControlsGeneral", settings.vibration_enabled);
@@ -198,24 +200,25 @@ void ApplySettings(BasicIni& ini, const Settings::Values& settings) {
     ApplySetting(ini, "Core", settings.use_extended_memory_layout);
 
     // CPU
-    ApplyEnumSetting(ini, "CPU", settings.cpu_accuracy);
-    ApplySetting(ini, "CPU", settings.cpu_debug_mode);
-    ApplySetting(ini, "CPU", settings.cpuopt_page_tables);
-    ApplySetting(ini, "CPU", settings.cpuopt_block_linking);
-    ApplySetting(ini, "CPU", settings.cpuopt_return_stack_buffer);
-    ApplySetting(ini, "CPU", settings.cpuopt_fast_dispatcher);
-    ApplySetting(ini, "CPU", settings.cpuopt_context_elimination);
-    ApplySetting(ini, "CPU", settings.cpuopt_misc_ir);
-    ApplySetting(ini, "CPU", settings.cpuopt_reduce_misalign_checks);
-    ApplySetting(ini, "CPU", settings.cpuopt_fastmem);
-    ApplySetting(ini, "CPU", settings.cpuopt_fastmem_exclusives);
-    ApplySetting(ini, "CPU", settings.cpuopt_recompile_exclusives);
-    ApplySetting(ini, "CPU", settings.cpuopt_unsafe_unfuse_fma);
-    ApplySetting(ini, "CPU", settings.cpuopt_unsafe_reduce_fp_error);
-    ApplySetting(ini, "CPU", settings.cpuopt_unsafe_ignore_standard_fpcr);
-    ApplySetting(ini, "CPU", settings.cpuopt_unsafe_inaccurate_nan);
-    ApplySetting(ini, "CPU", settings.cpuopt_unsafe_fastmem_check);
-    ApplySetting(ini, "CPU", settings.cpuopt_unsafe_ignore_global_monitor);
+    ApplyEnumSetting(ini, "Cpu", settings.cpu_accuracy);
+    ApplySetting(ini, "Cpu", settings.cpu_debug_mode);
+    ApplySetting(ini, "Cpu", settings.cpuopt_page_tables);
+    ApplySetting(ini, "Cpu", settings.cpuopt_block_linking);
+    ApplySetting(ini, "Cpu", settings.cpuopt_return_stack_buffer);
+    ApplySetting(ini, "Cpu", settings.cpuopt_fast_dispatcher);
+    ApplySetting(ini, "Cpu", settings.cpuopt_context_elimination);
+    ApplySetting(ini, "Cpu", settings.cpuopt_const_prop);
+    ApplySetting(ini, "Cpu", settings.cpuopt_misc_ir);
+    ApplySetting(ini, "Cpu", settings.cpuopt_reduce_misalign_checks);
+    ApplySetting(ini, "Cpu", settings.cpuopt_fastmem);
+    ApplySetting(ini, "Cpu", settings.cpuopt_fastmem_exclusives);
+    ApplySetting(ini, "Cpu", settings.cpuopt_recompile_exclusives);
+    ApplySetting(ini, "Cpu", settings.cpuopt_unsafe_unfuse_fma);
+    ApplySetting(ini, "Cpu", settings.cpuopt_unsafe_reduce_fp_error);
+    ApplySetting(ini, "Cpu", settings.cpuopt_unsafe_ignore_standard_fpcr);
+    ApplySetting(ini, "Cpu", settings.cpuopt_unsafe_inaccurate_nan);
+    ApplySetting(ini, "Cpu", settings.cpuopt_unsafe_fastmem_check);
+    ApplySetting(ini, "Cpu", settings.cpuopt_unsafe_ignore_global_monitor);
 
     // Renderer
     ApplyEnumSetting(ini, "Renderer", settings.renderer_backend);
@@ -231,6 +234,7 @@ void ApplySettings(BasicIni& ini, const Settings::Values& settings) {
     ApplySetting(ini, "Renderer", settings.use_disk_shader_cache);
     ApplyEnumSetting(ini, "Renderer", settings.gpu_accuracy);
     ApplySetting(ini, "Renderer", settings.use_asynchronous_gpu_emulation);
+    ApplyEnumSetting(ini, "Renderer", settings.nvdec_emulation);
     ApplySetting(ini, "Renderer", settings.accelerate_astc);
     ApplySetting(ini, "Renderer", settings.use_vsync);
     ApplySetting(ini, "Renderer", settings.fps_cap);
@@ -265,7 +269,7 @@ void ApplySettings(BasicIni& ini, const Settings::Values& settings) {
     ApplySetting(ini, "System", settings.sound_index);
 
     // Controls
-    ApplySetting(ini, "ControlsGeneral", settings.use_docked_mode);
+    ApplySetting(ini, "System", settings.use_docked_mode);
     ApplySetting(ini, "ControlsGeneral", settings.enable_raw_input);
     ApplySetting(ini, "ControlsGeneral", settings.controller_navigation);
     ApplySetting(ini, "ControlsGeneral", settings.vibration_enabled);
