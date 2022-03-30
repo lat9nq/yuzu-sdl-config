@@ -9,6 +9,10 @@ if (NOT PKG_CONFIG_FOUND)
     message(FATAL_ERROR "pkg-config not found")
 endif()
 
+# SDL2
+pkg_check_modules(SDL2 REQUIRED sdl2)
+
+# GTK+-3
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0>=3.22)
 pkg_check_modules(GMODULE_EXPORT REQUIRED gmodule-export-2.0>=2.56)
 
