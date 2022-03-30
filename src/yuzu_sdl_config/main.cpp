@@ -7,7 +7,21 @@
 int main(int argc, char* argv[]) {
     gtk_init(&argc, &argv);
 
-    std::unique_ptr<BasicIni> ini = std::make_unique<BasicIni>("test.ini");
+    std::filesystem::path config_path{};
+#ifdef __linux__
+    const char* xdg_config_home = std::getenv("XDG_CONFIG_HOME");
+    const char* home = std::getenv("HOME");
+
+    if (xdg_config_home == nullptr) {
+        config_path = home;
+        config_path /= ".config/yuzu/sdl2-config.ini";
+    } else {
+        config_path = xdg_config_home;
+        config_path /= "yuzu/sdl2-config.ini";
+    }
+#endif
+
+    std::unique_ptr<BasicIni> ini = std::make_unique<BasicIni>(config_path);
     std::unique_ptr<Settings::Values> values = std::make_unique<Settings::Values>();
 
     std::unique_ptr<YuzuSdlConfig::MainWindow> main_window =
