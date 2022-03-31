@@ -1,7 +1,12 @@
+#include <cstdio>
 #include <cstdlib>
 #include <string>
 #include <SDL2/SDL.h>
 #include "hid/device.h"
+#include "hid/hid.h"
+
+using Buttons = Settings::NativeButton::Values;
+using Analogs = Settings::NativeAnalog::Values;
 
 namespace Hid {
 Device::Device(int id_)
@@ -9,19 +14,27 @@ Device::Device(int id_)
       sdl_mapping{SDL_GameControllerMappingForGUID(guid)} {
     name = SDL_JoystickName(joystick);
 
+    guid_str = new char[33];
+    SDL_JoystickGetGUIDString(guid, guid_str, 33);
+
     ParseMapping();
 }
 
 Device::~Device() {
     SDL_free(sdl_mapping);
+    delete guid_str;
 }
 
 const std::string& Device::GetName() const {
     return name;
 }
 
-const Layout& Device::GetDefaultLayout() const {
+const Settings::PlayerInput& Device::GetDefaultLayout() const {
     return default_layout;
+}
+
+const SDL_JoystickGUID& Device::GetGuid() const {
+    return guid;
 }
 
 void Device::ParseMapping() {
@@ -55,6 +68,12 @@ void Device::ParseMapping() {
             Map(input_name, temp.c_str());
         }
     }
+
+    char analog_str[255];
+    MakeAnalogStickString(analog_str, 255, rightx_button, righty_button, guid_str);
+    default_layout.analogs[Analogs::RStick] = analog_str;
+    MakeAnalogStickString(analog_str, 255, leftx_button, lefty_button, guid_str);
+    default_layout.analogs[Analogs::LStick] = analog_str;
 }
 
 void Device::Map(const std::string& input_name, const char* device_button) {
@@ -63,63 +82,61 @@ void Device::Map(const std::string& input_name, const char* device_button) {
     }
 
     const int button_value = std::atoi(device_button + 1);
-    Mapping* button{nullptr};
+
+    std::string* button{nullptr};
     if (input_name == "a") {
-        button = &default_layout.a;
+        button = &default_layout.buttons[Buttons::A];
     } else if (input_name == "b") {
-        button = &default_layout.b;
+        button = &default_layout.buttons[Buttons::B];
     } else if (input_name == "x") {
-        button = &default_layout.x;
+        button = &default_layout.buttons[Buttons::X];
     } else if (input_name == "y") {
-        button = &default_layout.y;
+        button = &default_layout.buttons[Buttons::Y];
     } else if (input_name == "back") {
-        button = &default_layout.minus;
+        button = &default_layout.buttons[Buttons::Minus];
     } else if (input_name == "start") {
-        button = &default_layout.plus;
+        button = &default_layout.buttons[Buttons::Plus];
     } else if (input_name == "dpdown") {
-        button = &default_layout.ddown;
+        button = &default_layout.buttons[Buttons::DDown];
     } else if (input_name == "dpleft") {
-        button = &default_layout.dleft;
+        button = &default_layout.buttons[Buttons::DLeft];
     } else if (input_name == "dpright") {
-        button = &default_layout.dright;
+        button = &default_layout.buttons[Buttons::DRight];
     } else if (input_name == "dpup") {
-        button = &default_layout.dup;
+        button = &default_layout.buttons[Buttons::DUp];
     } else if (input_name == "guide") {
-        button = &default_layout.home;
+        button = &default_layout.buttons[Buttons::Home];
     } else if (input_name == "leftshoulder") {
-        button = &default_layout.l;
+        button = &default_layout.buttons[Buttons::L];
     } else if (input_name == "leftstick") {
-        button = &default_layout.lstick;
+        button = &default_layout.buttons[Buttons::LStick];
     } else if (input_name == "lefttrigger") {
-        button = &default_layout.zl;
+        button = &default_layout.buttons[Buttons::ZL];
     } else if (input_name == "rightshoulder") {
-        button = &default_layout.r;
+        button = &default_layout.buttons[Buttons::R];
     } else if (input_name == "rightstick") {
-        button = &default_layout.rstick;
+        button = &default_layout.buttons[Buttons::RStick];
     } else if (input_name == "righttrigger") {
-        button = &default_layout.zr;
+        button = &default_layout.buttons[Buttons::ZR];
     } else if (input_name == "misc1") {
-        button = &default_layout.capture;
+        button = &default_layout.buttons[Buttons::Screenshot];
     }
 
     if (button != nullptr) {
-        button->x = button_value;
-        button->type = device_button[0] == 'b' ? InputType::Button : InputType::Axis;
+        char button_str[255];
+        MakeButtonString(button_str, 255, device_button[0], button_value, guid_str);
+        *button = button_str;
         return;
     }
 
     if (input_name == "leftx") {
-        default_layout.left.x = button_value;
-        default_layout.left.type = device_button[0] == 'b' ? InputType::Button : InputType::Axis;
+        leftx_button = button_value;
     } else if (input_name == "lefty") {
-        default_layout.left.y = button_value;
-        default_layout.left.type = device_button[0] == 'b' ? InputType::Button : InputType::Axis;
+        lefty_button = button_value;
     } else if (input_name == "rightx") {
-        default_layout.right.x = button_value;
-        default_layout.right.type = device_button[0] == 'b' ? InputType::Button : InputType::Axis;
+        rightx_button = button_value;
     } else if (input_name == "righty") {
-        default_layout.right.y = button_value;
-        default_layout.right.type = device_button[0] == 'b' ? InputType::Button : InputType::Axis;
+        righty_button = button_value;
     }
 }
 } // namespace Hid

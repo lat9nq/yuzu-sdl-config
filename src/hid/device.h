@@ -2,52 +2,17 @@
 
 #include <string>
 #include <SDL2/SDL.h>
-#include <common/input.h>
+#include <common/settings_input.h>
 
 namespace Hid {
-enum class InputType {
-    Button,
-    Axis,
-};
-
-struct Mapping {
-    InputType type;
-    int x;
-    int y;
-};
-
-struct Layout {
-    Mapping left;
-    Mapping right;
-    Mapping lstick;
-    Mapping rstick;
-    Mapping a;
-    Mapping b;
-    Mapping x;
-    Mapping y;
-    Mapping plus;
-    Mapping minus;
-    Mapping home;
-    Mapping capture;
-    Mapping dup;
-    Mapping ddown;
-    Mapping dleft;
-    Mapping dright;
-    Mapping l;
-    Mapping r;
-    Mapping zl;
-    Mapping zr;
-    Mapping sl;
-    Mapping sr;
-};
-
 class Device {
 public:
     explicit Device(int id_);
     ~Device();
 
     const std::string& GetName() const;
-    const Layout& GetDefaultLayout() const;
+    const Settings::PlayerInput& GetDefaultLayout() const;
+    const SDL_JoystickGUID& GetGuid() const;
 
 private:
     void ParseMapping();
@@ -57,8 +22,18 @@ private:
     SDL_Joystick* joystick;
     std::string name;
     const SDL_JoystickGUID guid;
+    char* guid_str;
     char* sdl_mapping;
 
-    Layout default_layout;
+    //~ char leftx_type;
+    //~ char lefty_type;
+    int leftx_button;
+    int lefty_button;
+    //~ char rightx_type;
+    //~ char righty_type;
+    int rightx_button;
+    int righty_button;
+
+    Settings::PlayerInput default_layout;
 };
 } // namespace Hid

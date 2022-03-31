@@ -27,4 +27,19 @@ Hid::~Hid() {
 const std::vector<std::unique_ptr<Device>>& Hid::GetDevices() const {
     return devices;
 }
+
+void MakeButtonString(char* button_str, int button_str_len, char button_type, int button_value,
+                      const char* guid_str) {
+    const char* type = button_type == 'b' ? "button" : "axis";
+    std::snprintf(button_str, button_str_len, "%s:%d,guid:%s,port:0,engine:sdl", type, button_value,
+                  guid_str);
+}
+void MakeAnalogStickString(char* analog_str, int analog_str_len, int x_value, int y_value,
+                           const char* guid_str) {
+    std::snprintf(analog_str, analog_str_len,
+                  "invert_y:+,invert_x:+,offset_y:0.000000,axis_x:%d,offset_x:-0.000000,axis_y:%d,"
+                  "guid:%s,port:0,engine:sdl",
+                  x_value, y_value, guid_str);
+}
+
 } // namespace Hid
