@@ -103,6 +103,10 @@ void MainWindow::UpdateUi() {
     tab_network->UpdateUi();
     tab_system->UpdateUi();
     tab_web_service->UpdateUi();
+
+    for (auto& tab : input_tabs) {
+        tab->UpdateUi();
+    }
 }
 
 void MainWindow::ApplyUiConfiguration() {
@@ -117,6 +121,10 @@ void MainWindow::ApplyUiConfiguration() {
     tab_network->ApplyUiConfiguration();
     tab_system->ApplyUiConfiguration();
     tab_web_service->ApplyUiConfiguration();
+
+    for (auto& tab : input_tabs) {
+        tab->ApplyUiConfiguration();
+    }
 }
 
 void MainWindow::PopulateInputTabs() {

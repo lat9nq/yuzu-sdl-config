@@ -9,6 +9,7 @@
     <property name="hexpand">False</property>
     <property name="vexpand">False</property>
     <property name="resizable">False</property>
+    <property name="icon-name">yuzu</property>
     <signal name="destroy" handler="on_window_main_destroy" swapped="no"/>
     <child>
       <object class="GtkBox">

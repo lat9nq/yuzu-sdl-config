@@ -64,8 +64,8 @@
     <property name="margin-end">4</property>
     <property name="margin-top">4</property>
     <property name="margin-bottom">4</property>
-    <property name="row-spacing">4</property>
-    <property name="column-spacing">4</property>
+    <property name="row-spacing">3</property>
+    <property name="column-spacing">3</property>
     <child>
       <object class="GtkFrame">
         <property name="visible">True</property>
@@ -130,6 +130,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
+                <signal name="changed" handler="on_combo_box_text_device_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -143,6 +144,7 @@
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="image">image4</property>
+                <signal name="clicked" handler="on_button_refresh_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -280,7 +282,7 @@
             <property name="margin-top">4</property>
             <property name="margin-bottom">4</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">4</property>
+            <property name="spacing">3</property>
             <child>
               <!-- n-columns=2 n-rows=3 -->
               <object class="GtkGrid">
@@ -618,7 +620,7 @@
                 <property name="label-xalign">0</property>
                 <property name="shadow-type">none</property>
                 <child>
-                  <object class="GtkButton" id="buton_sl">
+                  <object class="GtkButton" id="button_sl">
                     <property name="label" translatable="yes">[not set]</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -1159,7 +1161,7 @@
             <property name="margin-top">4</property>
             <property name="margin-bottom">4</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">4</property>
+            <property name="spacing">3</property>
             <child>
               <!-- n-columns=2 n-rows=3 -->
               <object class="GtkGrid">
@@ -1175,7 +1177,7 @@
                     <property name="label-xalign">0</property>
                     <property name="shadow-type">none</property>
                     <child>
-                      <object class="GtkButton" id="buton_rstick_left">
+                      <object class="GtkButton" id="button_rstick_left">
                         <property name="label" translatable="yes">[not set]</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1202,7 +1204,7 @@
                     <property name="label-xalign">0</property>
                     <property name="shadow-type">none</property>
                     <child>
-                      <object class="GtkButton" id="buton_rstick_up">
+                      <object class="GtkButton" id="button_rstick_up">
                         <property name="label" translatable="yes">[not set]</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1229,7 +1231,7 @@
                     <property name="label-xalign">0</property>
                     <property name="shadow-type">none</property>
                     <child>
-                      <object class="GtkButton" id="buton_rstick_down">
+                      <object class="GtkButton" id="button_rstick_down">
                         <property name="label" translatable="yes">[not set]</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1256,7 +1258,7 @@
                     <property name="label-xalign">0</property>
                     <property name="shadow-type">none</property>
                     <child>
-                      <object class="GtkButton" id="buton_rstick_right">
+                      <object class="GtkButton" id="button_rstick_right">
                         <property name="label" translatable="yes">[not set]</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -1309,7 +1311,7 @@
                     <property name="label-xalign">0</property>
                     <property name="shadow-type">none</property>
                     <child>
-                      <object class="GtkButton" id="buton_rstick">
+                      <object class="GtkButton" id="button_rstick">
                         <property name="label" translatable="yes">[not set]</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>

@@ -18,4 +18,4 @@ void ApplySetting(BasicIni& ini, const std::string& section,
 template <typename T>
 void ApplyEnumSetting(BasicIni& ini, const std::string& section,
                       const Settings::BasicSetting<T>& setting);
-void ApplySettings(BasicIni& ini, const Settings::Values& settings);
+void ApplySettings(BasicIni& ini, Settings::Values& settings);

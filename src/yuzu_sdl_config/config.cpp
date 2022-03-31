@@ -2,6 +2,7 @@
 #include <basicini/basicini.h>
 #include <common/common_types.h>
 #include <common/settings.h>
+#include "hid/hid.h"
 #include "yuzu_sdl_config/config.h"
 
 template <typename T>
@@ -131,6 +132,23 @@ void LoadConfig(const BasicIni& ini, Settings::Values& settings) {
     LoadSetting(ini, "ControlsGeneral", settings.touch_device);
     LoadSetting(ini, "ControlsGeneral", settings.touch_from_button_map_index);
 
+    // Player Controls
+    for (std::size_t i = 0; i < settings.players.GetValue().size(); i++) {
+        const std::string section{"ControlsP" + std::to_string(i)};
+        auto& player = settings.players.GetValue()[i];
+        for (int button = 0; button < Settings::NativeButton::NumButtons; button++) {
+            player.buttons[button] =
+                ini.GetValue(section, Hid::button_strings[button]).value_or("");
+        }
+        for (int analog = 0; analog < Settings::NativeAnalog::NumAnalogs; analog++) {
+            player.analogs[analog] =
+                ini.GetValue(section, Hid::analog_strings[analog]).value_or("");
+        }
+        player.connected = ini.Get(section, "connected", false);
+        player.controller_type = static_cast<Settings::ControllerType>(
+            ini.Get(section, "type", static_cast<int>(Settings::ControllerType::ProController)));
+    }
+
     // Data Storage
     LoadSetting(ini, "Data Storage", settings.use_virtual_sd);
     LoadSetting(ini, "Data Storage", settings.gamecard_inserted);
@@ -188,7 +206,7 @@ void ApplyEnumSetting(BasicIni& ini, const std::string& section,
     ini.Set(section, setting.GetLabel(), std::to_string(static_cast<u32>(setting.GetValue())));
 }
 
-void ApplySettings(BasicIni& ini, const Settings::Values& settings) {
+void ApplySettings(BasicIni& ini, Settings::Values& settings) {
     // Audio
     ApplySetting(ini, "Audio", settings.audio_device_id);
     ApplySetting(ini, "Audio", settings.sink_id);
@@ -288,6 +306,23 @@ void ApplySettings(BasicIni& ini, const Settings::Values& settings) {
     ApplySetting(ini, "ControlsGeneral", settings.debug_pad_enabled);
     ApplySetting(ini, "ControlsGeneral", settings.touch_device);
     ApplySetting(ini, "ControlsGeneral", settings.touch_from_button_map_index);
+
+    // Player Controls
+    for (std::size_t i = 0; i < settings.players.GetValue().size(); i++) {
+        const std::string section{"ControlsP" + std::to_string(i)};
+        auto& player = settings.players.GetValue()[i];
+        ini.Set(section, "connected", std::to_string(player.connected));
+        if (player.connected) {
+            for (int button = 0; button < Settings::NativeButton::NumButtons; button++) {
+                ini.Set(section, Hid::button_strings[button], player.buttons[button]);
+            }
+            for (int analog = 0; analog < Settings::NativeAnalog::NumAnalogs; analog++) {
+                ini.Set(section, Hid::analog_strings[analog], player.analogs[analog]);
+            }
+            ini.Set(section, "type",
+                    std::to_string(static_cast<int>(player.controller_type)).c_str());
+        }
+    }
 
     // Data Storage
     ApplySetting(ini, "Data Storage", settings.use_virtual_sd);
