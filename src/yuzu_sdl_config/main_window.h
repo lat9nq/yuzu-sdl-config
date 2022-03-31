@@ -5,6 +5,10 @@
 #include <common/settings.h>
 #include <gtk/gtk.h>
 
+namespace Hid {
+class Hid;
+}
+
 namespace YuzuSdlConfig {
 class Tab;
 class TabAudio;
@@ -22,8 +26,8 @@ class TabWebService;
 
 class MainWindow {
 public:
-    explicit MainWindow(std::unique_ptr<BasicIni> ini_,
-                        std::unique_ptr<Settings::Values> settings_);
+    explicit MainWindow(std::unique_ptr<BasicIni> ini_, std::unique_ptr<Settings::Values> settings_,
+                        std::unique_ptr<Hid::Hid> hid_);
     ~MainWindow();
     void UpdateUi();
     void ReadIni();
@@ -67,6 +71,7 @@ private:
     void PopulateInputTabs();
 
     std::unique_ptr<Settings::Values> settings;
+    std::unique_ptr<Hid::Hid> hid;
     std::vector<std::vector<GtkWidget*>> tab_list;
 };
 

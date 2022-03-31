@@ -31,4 +31,5 @@ add_compile_options(
     $<$<CXX_COMPILER_ID:Clang>:-fsized-deallocation>
 )
 
+add_subdirectory(hid)
 add_subdirectory(yuzu_sdl_config)

@@ -100,4 +100,4 @@ target_include_directories(yuzu-sdl-config PRIVATE ${PROJECT_SOURCE_DIR}/externa
 target_include_directories(yuzu-sdl-config PRIVATE ${PROJECT_BINARY_DIR}/src)
 target_include_directories(yuzu-sdl-config PRIVATE ${GTK3_INCLUDE_DIRS} ${GMODULE_EXPORT_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS})
 target_link_libraries(yuzu-sdl-config PRIVATE ${GTK3_LIBRARIES} ${GMODULE_EXPORT_LIBRARIES} ${SDL2_LIBRARIES})
-target_link_libraries(yuzu-sdl-config PRIVATE basicini)
+target_link_libraries(yuzu-sdl-config PRIVATE basicini hid)

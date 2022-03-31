@@ -1,11 +1,15 @@
+#include <memory>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <common/settings.h>
+#include "hid/device.h"
+#include "hid/hid.h"
 #include "yuzu_sdl_config/tab/controls_player.glade.h"
 #include "yuzu_sdl_config/tab/controls_player.h"
 
 namespace YuzuSdlConfig {
-TabControlsPlayer::TabControlsPlayer(Settings::Values& settings_, u8 id_)
-    : settings{settings_}, id{id_} {
+TabControlsPlayer::TabControlsPlayer(Settings::Values& settings_, u8 id_, Hid::Hid& hid_)
+    : settings{settings_}, id{id_}, hid{hid_} {
     BuildUi();
     PopulateInputDeviceList();
 }
@@ -36,20 +40,12 @@ GtkWidget* TabControlsPlayer::GetParent() const {
 }
 
 void TabControlsPlayer::PopulateInputDeviceList() {
-    if (SDL_WasInit(SDL_INIT_GAMECONTROLLER) != SDL_INIT_GAMECONTROLLER) {
-        if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) != 0) {
-            std::fprintf(stderr,
-                         "error: failed to initialize SDL2 game controller sub system: %s\n",
-                         SDL_GetError());
-            return;
-        }
-    }
+    const auto& devices = hid.GetDevices();
+    const std::size_t device_count = devices.size();
 
-    const int num_joysticks = SDL_NumJoysticks();
-    for (int i = 0; i < num_joysticks; i++) {
-        SDL_Joystick* joystick = SDL_JoystickOpen(i);
-        gtk_combo_box_text_append_text(combo_box_text_device, SDL_JoystickName(joystick));
-        SDL_JoystickClose(joystick);
+    for (std::size_t i = 0; i < device_count; i++) {
+        const Hid::Device& device = *devices[i];
+        gtk_combo_box_text_append_text(combo_box_text_device, device.GetName().c_str());
     }
 }
 } // namespace YuzuSdlConfig

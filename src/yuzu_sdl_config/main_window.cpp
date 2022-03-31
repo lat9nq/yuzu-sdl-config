@@ -4,6 +4,7 @@
 #include <basicini/basicini.h>
 #include <basicini/basicini_reader.h>
 #include <gtk/gtk.h>
+#include "hid/hid.h"
 #include "yuzu_sdl_config/config.h"
 #include "yuzu_sdl_config/main_window.glade.h"
 #include "yuzu_sdl_config/main_window.h"
@@ -22,8 +23,9 @@
 
 namespace YuzuSdlConfig {
 
-MainWindow::MainWindow(std::unique_ptr<BasicIni> ini_, std::unique_ptr<Settings::Values> settings_)
-    : ini{std::move(ini_)}, settings{std::move(settings_)} {
+MainWindow::MainWindow(std::unique_ptr<BasicIni> ini_, std::unique_ptr<Settings::Values> settings_,
+                       std::unique_ptr<Hid::Hid> hid_)
+    : ini{std::move(ini_)}, settings{std::move(settings_)}, hid{std::move(hid_)} {
     BuildUi();
     ReadIni();
     UpdateUi();
@@ -119,7 +121,7 @@ void MainWindow::ApplyUiConfiguration() {
 
 void MainWindow::PopulateInputTabs() {
     for (int i = 0; i < 8; i++) {
-        input_tabs.push_back(std::make_unique<TabControlsPlayer>(*settings, i));
+        input_tabs.push_back(std::make_unique<TabControlsPlayer>(*settings, i, *hid));
         input_widgets.push_back(input_tabs[i]->GetParent());
     }
 }
